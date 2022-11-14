@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Nov 14. 23:04
+-- Létrehozás ideje: 2022. Nov 15. 00:21
 -- Kiszolgáló verziója: 10.4.25-MariaDB
 -- PHP verzió: 8.1.10
 
@@ -34,15 +34,6 @@ CREATE TABLE `foglalasok` (
   `helyszam` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
---
--- A tábla adatainak kiíratása `foglalasok`
---
-
-INSERT INTO `foglalasok` (`jaratszam`, `ugyfel_azonosito`, `foglalas_idopontja`, `helyszam`) VALUES
-(1234, 123456, '2022-11-14 22:04:06', 35),
-(2341, 123456, '2022-11-14 21:48:09', 20),
-(3241, 654321, '2022-11-14 21:55:35', 85);
-
 -- --------------------------------------------------------
 
 --
@@ -55,6 +46,8 @@ CREATE TABLE `jarat` (
   `sofor_nev` varchar(20) COLLATE utf8mb4_hungarian_ci NOT NULL,
   `ferohelyek_szama` int(3) NOT NULL,
   `max_sebesseg` int(3) NOT NULL,
+  `indulas_ideje` time DEFAULT NULL,
+  `erkezes_ideje` time DEFAULT NULL,
   `indulovaros_kod` int(2) NOT NULL,
   `vegallomasvaros_kod` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
@@ -63,10 +56,27 @@ CREATE TABLE `jarat` (
 -- A tábla adatainak kiíratása `jarat`
 --
 
-INSERT INTO `jarat` (`jarat_szam`, `jarat_tipus`, `sofor_nev`, `ferohelyek_szama`, `max_sebesseg`, `indulovaros_kod`, `vegallomasvaros_kod`) VALUES
-(1234, 'Vonat', 'Nagy Pista', 350, 90, 1, 2),
-(2341, 'Busz', 'Illés Zoltán', 50, 90, 3, 1),
-(3241, 'Vonat', 'Nagy Pista', 350, 90, 2, 1);
+INSERT INTO `jarat` (`jarat_szam`, `jarat_tipus`, `sofor_nev`, `ferohelyek_szama`, `max_sebesseg`, `indulas_ideje`, `erkezes_ideje`, `indulovaros_kod`, `vegallomasvaros_kod`) VALUES
+(1242, 'Vonat', 'Fehér Klaudia', 250, 100, '12:00:00', '14:00:00', 2, 1),
+(1380, 'Vonat', 'Király Kornél', 400, 110, '09:28:00', '13:10:00', 4, 3),
+(2018, 'Repulő', 'Farkas Adél', 230, 990, '04:50:00', '06:05:00', 4, 8),
+(2271, 'Vonat', 'Szőke Rudolf', 250, 90, '18:50:00', '22:00:00', 5, 4),
+(2551, 'Vonat', 'Szőke Rudolf', 250, 115, '13:10:00', '15:45:00', 4, 5),
+(2928, 'Repulő', 'Farkas Adél', 230, 980, '11:30:00', '12:40:00', 8, 4),
+(2969, 'Busz', 'Gáspár Áron', 30, 90, '16:25:00', '17:25:00', 7, 2),
+(3329, 'Vonat', 'Katona Rudolf', 400, 95, '22:00:00', '23:50:00', 1, 6),
+(3457, 'Busz', 'Gáspár Áron', 30, 90, '10:15:00', '11:15:00', 2, 7),
+(3981, 'Repulő', 'Király Barna', 190, 900, '12:00:00', '15:42:00', 4, 10),
+(4099, 'Repulő', 'Király Barna', 190, 850, '20:20:00', '23:52:00', 10, 4),
+(4784, 'Vonat', 'Orosz Áron', 230, 100, '15:30:00', '18:25:00', 1, 6),
+(5041, 'Repulő', 'Balla Patrícia', 200, 920, '20:45:00', '22:10:00', 9, 4),
+(5838, 'Vonat', 'Király Kornél', 400, 105, '18:10:00', '22:18:00', 3, 4),
+(7431, 'Busz', 'Illés Zoltán', 30, 75, '08:35:00', '13:40:00', 3, 2),
+(7551, 'Busz', 'Boros Katalin', 25, 80, '12:25:00', '15:25:00', 4, 5),
+(8471, 'Vonat', 'Katona Rudolf', 400, 95, '17:10:00', '19:20:00', 6, 1),
+(8941, 'Repulő', 'Balla Patrícia', 200, 920, '08:10:00', '10:00:00', 4, 9),
+(9567, 'Busz', 'Illés Zoltán', 30, 95, '15:40:00', '20:40:00', 2, 3),
+(9627, 'Busz', 'Boros Katalin', 25, 85, '18:30:00', '21:30:00', 5, 4);
 
 -- --------------------------------------------------------
 
@@ -109,7 +119,13 @@ INSERT INTO `varos` (`varos_kod`, `nev`) VALUES
 (1, 'Szeged'),
 (2, 'Békéscsaba'),
 (3, 'Pécs'),
-(4, 'Budapest');
+(4, 'Budapest'),
+(5, 'Debrecen'),
+(6, 'Kecskemét'),
+(7, 'Gyula'),
+(8, 'Bécs'),
+(9, 'Bukarest'),
+(10, 'Barcelona');
 
 --
 -- Indexek a kiírt táblákhoz

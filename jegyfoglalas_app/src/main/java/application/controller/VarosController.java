@@ -19,8 +19,7 @@ public class VarosController {
 
     @GetMapping(value="mukodj")
     public String listArucikk() {
-        List<Varos> varosok_listaja = new ArrayList<Varos>();
-        varosok_listaja = varosDAO.listVarosok();
+        List<Varos> varosok_listaja = varosDAO.listVarosok();
         for (int i = 0; i < varosok_listaja.size(); i++) {
             System.out.println(varosok_listaja.get(i).getNev());
         }

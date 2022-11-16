@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2022. Nov 15. 00:21
+-- Létrehozás ideje: 2022. Nov 16. 18:48
 -- Kiszolgáló verziója: 10.4.25-MariaDB
 -- PHP verzió: 8.1.10
 
@@ -33,6 +33,27 @@ CREATE TABLE `foglalasok` (
   `foglalas_idopontja` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `helyszam` int(3) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Tábla szerkezet ehhez a táblához `hotel`
+--
+
+CREATE TABLE `hotel` (
+  `szallas_id` int(2) NOT NULL,
+  `csillagok_szama` int(1) NOT NULL,
+  `van_e_medence` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+
+--
+-- A tábla adatainak kiíratása `hotel`
+--
+
+INSERT INTO `hotel` (`szallas_id`, `csillagok_szama`, `van_e_medence`) VALUES
+(8, 3, 0),
+(7, 4, 1),
+(11, 4, 1);
 
 -- --------------------------------------------------------
 
@@ -81,6 +102,30 @@ INSERT INTO `jarat` (`jarat_szam`, `jarat_tipus`, `sofor_nev`, `ferohelyek_szama
 -- --------------------------------------------------------
 
 --
+-- Tábla szerkezet ehhez a táblához `szallas`
+--
+
+CREATE TABLE `szallas` (
+  `szallas_id` int(2) NOT NULL,
+  `varos_kod` int(2) NOT NULL,
+  `nev` varchar(100) COLLATE utf8mb4_hungarian_ci NOT NULL,
+  `ar_per_ej` int(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
+
+--
+-- A tábla adatainak kiíratása `szallas`
+--
+
+INSERT INTO `szallas` (`szallas_id`, `varos_kod`, `nev`, `ar_per_ej`) VALUES
+(7, 1, 'Szeged Hotel', 19000),
+(8, 7, 'Gyulai Várfürdő és Hotel', 21000),
+(9, 2, 'Csaba motel', 4500),
+(10, 3, 'Kisvirág vendéglő', 6500),
+(11, 4, 'Danubius Hotel Aréna', 23500);
+
+-- --------------------------------------------------------
+
+--
 -- Tábla szerkezet ehhez a táblához `ugyfel`
 --
 
@@ -88,7 +133,7 @@ CREATE TABLE `ugyfel` (
   `ugyfel_azonosito` int(6) NOT NULL,
   `nev` varchar(30) COLLATE utf8mb4_hungarian_ci NOT NULL,
   `lakcim` varchar(100) COLLATE utf8mb4_hungarian_ci NOT NULL,
-  `telefonszam` varchar(10) COLLATE utf8mb4_hungarian_ci NOT NULL
+  `telefonszam` varchar(11) COLLATE utf8mb4_hungarian_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_hungarian_ci;
 
 --
@@ -96,9 +141,7 @@ CREATE TABLE `ugyfel` (
 --
 
 INSERT INTO `ugyfel` (`ugyfel_azonosito`, `nev`, `lakcim`, `telefonszam`) VALUES
-(123456, 'Zsofenszki Kristóf', 'Szeged', '123'),
-(456123, 'Varga Kristóf', 'Nagyszénás', '0630788440'),
-(654321, 'Kasza Dominik', 'Szeged', '12345');
+(3, 'Pista', 'Pista', '123456');
 
 -- --------------------------------------------------------
 
@@ -136,16 +179,28 @@ INSERT INTO `varos` (`varos_kod`, `nev`) VALUES
 --
 ALTER TABLE `foglalasok`
   ADD PRIMARY KEY (`jaratszam`,`foglalas_idopontja`,`helyszam`),
-  ADD UNIQUE KEY `jaratszam` (`jaratszam`,`ugyfel_azonosito`,`helyszam`),
-  ADD KEY `ugyfel_azonosito` (`ugyfel_azonosito`);
+  ADD KEY `ugyfel` (`ugyfel_azonosito`);
+
+--
+-- A tábla indexei `hotel`
+--
+ALTER TABLE `hotel`
+  ADD KEY `szallas_id` (`szallas_id`);
 
 --
 -- A tábla indexei `jarat`
 --
 ALTER TABLE `jarat`
   ADD PRIMARY KEY (`jarat_szam`),
-  ADD KEY `indulovaroskod` (`indulovaros_kod`),
-  ADD KEY `vegallomasvaroskod` (`vegallomasvaros_kod`);
+  ADD KEY `erkezo_kulso_kulcs` (`vegallomasvaros_kod`),
+  ADD KEY `indulo_kulso_kulcs` (`indulovaros_kod`);
+
+--
+-- A tábla indexei `szallas`
+--
+ALTER TABLE `szallas`
+  ADD PRIMARY KEY (`szallas_id`),
+  ADD KEY `kulso_kulcs_varos` (`varos_kod`);
 
 --
 -- A tábla indexei `ugyfel`
@@ -160,6 +215,28 @@ ALTER TABLE `varos`
   ADD PRIMARY KEY (`varos_kod`);
 
 --
+-- A kiírt táblák AUTO_INCREMENT értéke
+--
+
+--
+-- AUTO_INCREMENT a táblához `szallas`
+--
+ALTER TABLE `szallas`
+  MODIFY `szallas_id` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- AUTO_INCREMENT a táblához `ugyfel`
+--
+ALTER TABLE `ugyfel`
+  MODIFY `ugyfel_azonosito` int(6) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT a táblához `varos`
+--
+ALTER TABLE `varos`
+  MODIFY `varos_kod` int(2) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+
+--
 -- Megkötések a kiírt táblákhoz
 --
 
@@ -167,15 +244,27 @@ ALTER TABLE `varos`
 -- Megkötések a táblához `foglalasok`
 --
 ALTER TABLE `foglalasok`
-  ADD CONSTRAINT `foglalasok_ibfk_1` FOREIGN KEY (`jaratszam`) REFERENCES `jarat` (`jarat_szam`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `foglalasok_ibfk_2` FOREIGN KEY (`ugyfel_azonosito`) REFERENCES `ugyfel` (`ugyfel_azonosito`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `foglalasok_ibfk_1` FOREIGN KEY (`jaratszam`) REFERENCES `jarat` (`jarat_szam`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `ugyfel` FOREIGN KEY (`ugyfel_azonosito`) REFERENCES `ugyfel` (`ugyfel_azonosito`) ON DELETE CASCADE;
+
+--
+-- Megkötések a táblához `hotel`
+--
+ALTER TABLE `hotel`
+  ADD CONSTRAINT `hotel_ibfk_1` FOREIGN KEY (`szallas_id`) REFERENCES `szallas` (`szallas_id`) ON DELETE CASCADE;
 
 --
 -- Megkötések a táblához `jarat`
 --
 ALTER TABLE `jarat`
-  ADD CONSTRAINT `jarat_ibfk_1` FOREIGN KEY (`indulovaros_kod`) REFERENCES `varos` (`varos_kod`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  ADD CONSTRAINT `jarat_ibfk_2` FOREIGN KEY (`vegallomasvaros_kod`) REFERENCES `varos` (`varos_kod`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+  ADD CONSTRAINT `erkezo_kulso_kulcs` FOREIGN KEY (`vegallomasvaros_kod`) REFERENCES `varos` (`varos_kod`) ON DELETE CASCADE,
+  ADD CONSTRAINT `indulo_kulso_kulcs` FOREIGN KEY (`indulovaros_kod`) REFERENCES `varos` (`varos_kod`) ON DELETE CASCADE;
+
+--
+-- Megkötések a táblához `szallas`
+--
+ALTER TABLE `szallas`
+  ADD CONSTRAINT `kulso_kulcs_varos` FOREIGN KEY (`varos_kod`) REFERENCES `varos` (`varos_kod`) ON DELETE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

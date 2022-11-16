@@ -1,0 +1,6 @@
+Ezzel ki lehet listázni, hogy melyik városbol melyik v.-be lehet eljutni.
+
+SELECT varos.nev
+from jarat, varos
+WHERE varos.varos_kod in (SELECT jarat.vegallomasvaros_kod from varos, jarat WHERE varos.varos_kod = jarat.indulovaros_kod AND varos.nev = "Békéscsaba" ) 
+GROUP BY varos.nev;

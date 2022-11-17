@@ -31,4 +31,12 @@ public class Varos {
     public void setNev(String nev) {
         this.nev = nev;
     }
+
+    @Override
+    public String toString() {
+        return "Varos{" +
+                "varos_kod=" + varos_kod +
+                ", nev='" + nev + '\'' +
+                '}';
+    }
 }

@@ -1,0 +1,54 @@
+package application.model;
+
+public class Hotel {
+    private int szallas_id;
+    private int csillagok_szama;
+    private int van_e_medence;
+
+    public Hotel() {
+    }
+
+    public Hotel(int szallas_id, int csillagok_szama, int van_e_medence) {
+        this.szallas_id = szallas_id;
+        this.csillagok_szama = csillagok_szama;
+        this.van_e_medence = van_e_medence;
+    }
+
+    public Hotel(int csillagok_szama, int van_e_medence) {
+        this.csillagok_szama = csillagok_szama;
+        this.van_e_medence = van_e_medence;
+    }
+
+    public int getSzallas_id() {
+        return szallas_id;
+    }
+
+    public void setSzallas_id(int szallas_id) {
+        this.szallas_id = szallas_id;
+    }
+
+    public int getCsillagok_szama() {
+        return csillagok_szama;
+    }
+
+    public void setCsillagok_szama(int csillagok_szama) {
+        this.csillagok_szama = csillagok_szama;
+    }
+
+    public int getVan_e_medence() {
+        return van_e_medence;
+    }
+
+    public void setVan_e_medence(int van_e_medence) {
+        this.van_e_medence = van_e_medence;
+    }
+
+    @Override
+    public String toString() {
+        return "Hotel{" +
+                "szallas_id=" + szallas_id +
+                ", csillagok_szama=" + csillagok_szama +
+                ", van_e_medence=" + van_e_medence +
+                '}';
+    }
+}

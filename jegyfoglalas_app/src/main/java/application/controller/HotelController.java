@@ -1,7 +1,7 @@
 package application.controller;
 
-import application.dao.UgyfelDAO;
-import application.model.Ugyfel;
+import application.dao.HotelDAO;
+import application.model.Hotel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -9,15 +9,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 import java.util.List;
 
 @Controller
-public class UgyfelController {
+public class HotelController {
+
     @Autowired
-    private UgyfelDAO ugyfelDAO;
+    private HotelDAO hotelDAO;
 
    // @GetMapping(value ="mukodj")
-    public String listUgyfel() {
-        List<Ugyfel> ugyfelList = ugyfelDAO.listUgyfel();
-        for (int i = 0; i < ugyfelList.size(); i++) {
-            System.out.println(ugyfelList.get(i).toString());
+    public String listHotel() {
+        List<Hotel> hotelList = hotelDAO.listHotel();
+        for (int i = 0; i < hotelList.size(); i++) {
+            System.out.println(hotelList.get(i).toString());
         }
         return "redirect:/";
     }

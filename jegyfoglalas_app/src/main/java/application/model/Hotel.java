@@ -4,6 +4,7 @@ public class Hotel {
     private int szallas_id;
     private int csillagok_szama;
     private int van_e_medence;
+    private String van_e_medence_szoveg;
 
     public Hotel() {
     }
@@ -12,11 +13,21 @@ public class Hotel {
         this.szallas_id = szallas_id;
         this.csillagok_szama = csillagok_szama;
         this.van_e_medence = van_e_medence;
+        if (van_e_medence == 0){
+            this.van_e_medence_szoveg = "Nincs";
+        }else {
+            this.van_e_medence_szoveg = "Van";
+        }
     }
 
     public Hotel(int csillagok_szama, int van_e_medence) {
         this.csillagok_szama = csillagok_szama;
         this.van_e_medence = van_e_medence;
+        if (van_e_medence == 0){
+            this.van_e_medence_szoveg = "Nincs";
+        }else {
+            this.van_e_medence_szoveg = "Van";
+        }
     }
 
     public int getSzallas_id() {
@@ -41,6 +52,15 @@ public class Hotel {
 
     public void setVan_e_medence(int van_e_medence) {
         this.van_e_medence = van_e_medence;
+        if (van_e_medence == 0){
+            this.van_e_medence_szoveg = "Nincs";
+        }else {
+            this.van_e_medence_szoveg = "Van";
+        }
+    }
+
+    public String getVan_e_medence_szoveg() {
+        return van_e_medence_szoveg;
     }
 
     @Override
@@ -48,7 +68,7 @@ public class Hotel {
         return "Hotel{" +
                 "szallas_id=" + szallas_id +
                 ", csillagok_szama=" + csillagok_szama +
-                ", van_e_medence=" + van_e_medence +
+                ", van_e_medence_szoveg='" + van_e_medence_szoveg + '\'' +
                 '}';
     }
 }

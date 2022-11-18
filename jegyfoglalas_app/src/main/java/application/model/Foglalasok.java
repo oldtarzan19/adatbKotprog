@@ -6,22 +6,36 @@ import java.sql.Timestamp;
 public class Foglalasok {
     private int jaratszam;
     private int ugyfel_azonosito;
-    private Timestamp foglalas_idopontja;
+    private String foglalas_idopontja;
     private int helyszam;
 
     public Foglalasok() {
     }
 
-    public Foglalasok(int jaratszam, int ugyfel_azonosito, Timestamp foglalas_idopontja, int helyszam) {
+    public Foglalasok(int jaratszam, int ugyfel_azonosito, String foglalas_idopontja, int helyszam) {
         this.jaratszam = jaratszam;
         this.ugyfel_azonosito = ugyfel_azonosito;
         this.foglalas_idopontja = foglalas_idopontja;
         this.helyszam = helyszam;
     }
 
-    public Foglalasok(int ugyfel_azonosito, Timestamp foglalas_idopontja, int helyszam) {
+    public Foglalasok(int ugyfel_azonosito, String foglalas_idopontja, int helyszam) {
         this.ugyfel_azonosito = ugyfel_azonosito;
         this.foglalas_idopontja = foglalas_idopontja;
+        this.helyszam = helyszam;
+    }
+
+
+    /**
+     * Azért kell ez a constructor, mert mikor feltoltunk az adatb-be az automatikus menti a datumot. Nekunk nem
+     * kell azzal foglalkozni.
+     * @param jaratszam
+     * @param ugyfel_azonosito
+     * @param helyszam
+     */
+    public Foglalasok(int jaratszam, int ugyfel_azonosito, int helyszam) {
+        this.jaratszam = jaratszam;
+        this.ugyfel_azonosito = ugyfel_azonosito;
         this.helyszam = helyszam;
     }
 
@@ -41,11 +55,11 @@ public class Foglalasok {
         this.ugyfel_azonosito = ugyfel_azonosito;
     }
 
-    public Timestamp getFoglalas_idopontja() {
+    public String getFoglalas_idopontja() {
         return foglalas_idopontja;
     }
 
-    public void setFoglalas_idopontja(Timestamp foglalas_idopontja) {
+    public void setFoglalas_idopontja(String foglalas_idopontja) {
         this.foglalas_idopontja = foglalas_idopontja;
     }
 
@@ -62,7 +76,7 @@ public class Foglalasok {
         return "Foglalasok{" +
                 "jaratszam=" + jaratszam +
                 ", ugyfel_azonosito=" + ugyfel_azonosito +
-                ", foglalas_idopontja=" + foglalas_idopontja +
+                ", foglalas_idopontja='" + foglalas_idopontja + '\'' +
                 ", helyszam=" + helyszam +
                 '}';
     }

@@ -9,15 +9,15 @@ public class Jarat {
     private String sofor_nev;
     private int ferohelyek_szama;
     private int max_sebesseg;
-    private Date indulas_ideje;  // EZ IT PROLLY STRING, UGYAN UGY MINDENHOL MÁSHOL IS
-    private Date erkezes_ideje;
+    private String indulas_ideje;  // EZ IT PROLLY STRING, UGYAN UGY MINDENHOL MÁSHOL IS
+    private String erkezes_ideje;
     private int indulovaros_kod;
     private int vegallomasvaros_kod;
 
     public Jarat() {
     }
 
-    public Jarat(int jarat_szam, String jarat_tipus, String sofor_nev, int ferohelyek_szama, int max_sebesseg, Date indulas_ideje, Date erkezes_ideje, int indulovaros_kod, int vegallomasvaros_kod) {
+    public Jarat(int jarat_szam, String jarat_tipus, String sofor_nev, int ferohelyek_szama, int max_sebesseg, String indulas_ideje, String erkezes_ideje, int indulovaros_kod, int vegallomasvaros_kod) {
         this.jarat_szam = jarat_szam;
         this.jarat_tipus = jarat_tipus;
         this.sofor_nev = sofor_nev;
@@ -29,7 +29,7 @@ public class Jarat {
         this.vegallomasvaros_kod = vegallomasvaros_kod;
     }
 
-    public Jarat(String jarat_tipus, String sofor_nev, int ferohelyek_szama, int max_sebesseg, Date indulas_ideje, Date erkezes_ideje, int indulovaros_kod, int vegallomasvaros_kod) {
+    public Jarat(String jarat_tipus, String sofor_nev, int ferohelyek_szama, int max_sebesseg, String indulas_ideje, String erkezes_ideje, int indulovaros_kod, int vegallomasvaros_kod) {
         this.jarat_tipus = jarat_tipus;
         this.sofor_nev = sofor_nev;
         this.ferohelyek_szama = ferohelyek_szama;
@@ -80,19 +80,19 @@ public class Jarat {
         this.max_sebesseg = max_sebesseg;
     }
 
-    public Date getIndulas_ideje() {
+    public String getIndulas_ideje() {
         return indulas_ideje;
     }
 
-    public void setIndulas_ideje(Date indulas_ideje) {
+    public void setIndulas_ideje(String indulas_ideje) {
         this.indulas_ideje = indulas_ideje;
     }
 
-    public Date getErkezes_ideje() {
+    public String getErkezes_ideje() {
         return erkezes_ideje;
     }
 
-    public void setErkezes_ideje(Date erkezes_ideje) {
+    public void setErkezes_ideje(String erkezes_ideje) {
         this.erkezes_ideje = erkezes_ideje;
     }
 
@@ -120,8 +120,8 @@ public class Jarat {
                 ", sofor_nev='" + sofor_nev + '\'' +
                 ", ferohelyek_szama=" + ferohelyek_szama +
                 ", max_sebesseg=" + max_sebesseg +
-                ", indulas_ideje=" + indulas_ideje +
-                ", erkezes_ideje=" + erkezes_ideje +
+                ", indulas_ideje='" + indulas_ideje + '\'' +
+                ", erkezes_ideje='" + erkezes_ideje + '\'' +
                 ", indulovaros_kod=" + indulovaros_kod +
                 ", vegallomasvaros_kod=" + vegallomasvaros_kod +
                 '}';

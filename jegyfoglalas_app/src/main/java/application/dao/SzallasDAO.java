@@ -22,12 +22,11 @@ public class SzallasDAO extends JdbcDaoSupport {
     private void initialize() {setDataSource(dataSource);}
 
     public List<Szallas> listSzallasok() {
-       // String sql = "SELECT szallas_id, varos_kod, nev, ar_per_ej FROM szallas";
-
-        String sql = "SELECT szallas.szallas_id, szallas.varos_kod, szallas.nev, szallas.ar_per_ej FROM szallas, varos WHERE szallas.varos_kod = varos.varos_kod AND varos.nev = \"Szeged\"";
+        String sql = "SELECT szallas_id, varos_kod, nev, ar_per_ej FROM szallas";
+            // Összetett lekerdezes
+       // String sql = "SELECT szallas.szallas_id, szallas.varos_kod, szallas.nev, szallas.ar_per_ej FROM szallas, varos WHERE szallas.varos_kod = varos.varos_kod AND varos.nev = \"Szeged\"";
 
         List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql);
-
 
         List<Szallas> result = new ArrayList<Szallas>();
 

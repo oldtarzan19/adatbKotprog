@@ -19,7 +19,7 @@ public class SzallasController {
     public String listSzallasok() {
         List<Szallas> szallasokList = szallasDAO.listSzallasok();
         for (int i = 0; i < szallasokList.size(); i++) {
-            System.out.println(szallasokList.get(i).getNev());
+            System.out.println(szallasokList.get(i).toString());
         }
         return "redirect:/";
     }

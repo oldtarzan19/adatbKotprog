@@ -45,4 +45,9 @@ public class UgyfelDAO extends JdbcDaoSupport {
         return result;
     }
 
+    public void deleteUgyfel(int ugyfel_azonosito) {
+        String sql = "DELETE FROM ugyfel WHERE ugyfel_azonosito=" + ugyfel_azonosito;
+        getJdbcTemplate().update(sql);
+    }
+
 }

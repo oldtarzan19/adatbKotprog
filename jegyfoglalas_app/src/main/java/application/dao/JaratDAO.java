@@ -53,4 +53,9 @@ public class JaratDAO extends JdbcDaoSupport {
         }
         return result;
     }
+
+    public void deleteJarat(int jarat_szam) {
+        String sql = "DELETE FROM jarat WHERE jarat_szam=" + jarat_szam;
+        getJdbcTemplate().update(sql);
+    }
 }

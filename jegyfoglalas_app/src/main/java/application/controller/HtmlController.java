@@ -11,10 +11,10 @@ public class HtmlController {
         return "redirect:/";
     }
 
-    @GetMapping(value = "ugyfel_site")
+   /* @GetMapping(value = "ugyfel_site")
     public String getNewUgyfel(){
         return "ugyfel";
-    }
+    } */
 
     @GetMapping(value = "jaratok_site")
     public String getJaratok(){

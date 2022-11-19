@@ -4,6 +4,7 @@ import application.dao.UgyfelDAO;
 import application.model.Ugyfel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -29,6 +30,17 @@ public class UgyfelController {
         Ugyfel ugyfel = new Ugyfel(nev, lakcim, telefonszam);
         ugyfelDAO.insertUgyfel(ugyfel);
         return "redirect:/ugyfel_site";
+    }
+
+   /* @GetMapping("/ugyfel_site")
+    public void ugyfelekListazasa(Model model) {
+        model.addAttribute("ugyfelek",ugyfelDAO.listUgyfel());
+    } */
+
+    @GetMapping(value = "ugyfel_site")
+    public String ugyfelekListazasa(Model model) {
+        model.addAttribute("ugyfelek",ugyfelDAO.listUgyfel());
+        return "ugyfel";
     }
 
 }

@@ -72,4 +72,11 @@ public class UgyfelDAO extends JdbcDaoSupport {
         return result.get(0);
     }
 
+    public void insertUgyfel(Ugyfel ugyfel) {
+        String sql = "INSERT INTO ugyfel(nev,lakcim,telefonszam) VALUES (?,?,?)";
+        getJdbcTemplate().update(sql, new Object[] {
+                ugyfel.getNev(),ugyfel.getLakcim(),ugyfel.getTelefonszam()
+        });
+    }
+
 }

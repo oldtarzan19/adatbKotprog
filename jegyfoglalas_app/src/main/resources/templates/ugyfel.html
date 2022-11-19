@@ -20,6 +20,20 @@
 </nav>
 
 <body>
-<h1>Ugyfel</h1>
+<h2>Ügyfél hozzáadása</h2>
+<form action="#" th:action="@{/ugyfel_hozzaadasa}" method="post">
+    <label>Név:
+        <input type="text" name="nev" required>
+    </label> <br/>
+    <label>Lakcim:
+        <input type="text" name="lakcim" required>
+    </label> <br/>
+    <label>Telefonszám:
+        <input type="text" name="telefonszam" required>
+    </label> <br/>
+    <input type="submit" value="Submit" class="btn-sm btn-dark details"></input>
+</form>
+
+
 </body>
 </html>

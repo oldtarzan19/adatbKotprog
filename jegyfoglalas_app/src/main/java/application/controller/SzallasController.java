@@ -33,7 +33,7 @@ public class SzallasController {
      * Ezzel a metoddal lehet listázni azokat a városokat amiben vannak a Szállások
      * @return Csak visszatér a főoldalra
      */
-    @GetMapping(value ="mukodj")
+   // @GetMapping(value ="mukodj")
     public String getVarosSzallasSzerint(){
         List<Szallas> szallasokList = szallasDAO.listSzallasok();
         List<Varos> varos = new ArrayList<Varos>();

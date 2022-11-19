@@ -50,4 +50,26 @@ public class UgyfelDAO extends JdbcDaoSupport {
         getJdbcTemplate().update(sql);
     }
 
+    public Ugyfel getUgyfelByAzonosito(int ugyfel_azonosito) {
+        String sql = "SELECT * FROM ugyfel WHERE ugyfel_azonosito=" + ugyfel_azonosito;
+        List < Map < String, Object >> rows = getJdbcTemplate().queryForList(sql);
+
+        List < Ugyfel > result = new ArrayList < Ugyfel > ();
+        for (Map<String, Object> row : rows) {
+            Ugyfel ugyfel = new Ugyfel();
+            String ugyfel_azonosito_string =  row.get("ugyfel_azonosito").toString();
+            String nev =  row.get("nev").toString();
+            String lakcim =  row.get("lakcim").toString();
+            String telefonszam =  row.get("telefonszam").toString();
+            ugyfel.setUgyfel_azonosito(Integer.parseInt(ugyfel_azonosito_string));
+            ugyfel.setNev(nev);
+            ugyfel.setLakcim(lakcim);
+            ugyfel.setTelefonszam(telefonszam);
+
+            result.add(ugyfel);
+        }
+
+        return result.get(0);
+    }
+
 }

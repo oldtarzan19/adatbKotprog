@@ -37,4 +37,22 @@ public class VarosDAO extends JdbcDaoSupport {
         }
         return result;
     }
+
+    public Varos getVarosByVarosKod(int varos_kod) {
+        String sql = "SELECT * FROM varos WHERE varos_kod=" + varos_kod;
+        List < Map < String, Object >> rows = getJdbcTemplate().queryForList(sql);
+
+        List < Varos > result = new ArrayList < Varos > ();
+        for (Map<String, Object> row : rows) {
+            Varos varos = new Varos();
+            String id =  row.get("varos_kod").toString();
+            String nev =  row.get("nev").toString();
+            varos.setVaros_kod(Integer.parseInt(id));
+            varos.setNev(nev);
+
+            result.add(varos);
+        }
+
+        return result.get(0);
+    }
 }

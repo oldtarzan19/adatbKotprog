@@ -46,7 +46,32 @@ public class SzallasDAO extends JdbcDaoSupport {
         return result;
     }
 
+    public void deleteSzallas(int szallas_id) {
+        String sql = "DELETE FROM szallas WHERE szallas_id=" + szallas_id;
+        getJdbcTemplate().update(sql);
+    }
 
+    public Szallas getSzallasBySzallasId(int szallas_id) {
+        String sql = "SELECT * FROM szallas WHERE szallas_id=" + szallas_id;
+        List < Map < String, Object >> rows = getJdbcTemplate().queryForList(sql);
+
+        List < Szallas > result = new ArrayList < Szallas > ();
+        for (Map<String, Object> row : rows) {
+            Szallas szallas = new Szallas();
+            String szallas_id_str =  row.get("szallas_id").toString();
+            String varos_kod =  row.get("varos_kod").toString();
+            String nev =  row.get("nev").toString();
+            String ar_per_ej =  row.get("ar_per_ej").toString();
+            szallas.setSzallas_id(Integer.parseInt(szallas_id_str));
+            szallas.setVaros_kod(Integer.parseInt(varos_kod));
+            szallas.setNev(nev);
+            szallas.setAr_per_ej(Integer.parseInt(ar_per_ej));
+
+            result.add(szallas);
+        }
+
+        return result.get(0);
+    }
 
 
 }

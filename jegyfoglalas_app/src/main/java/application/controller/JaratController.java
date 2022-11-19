@@ -13,7 +13,7 @@ public class JaratController {
     @Autowired
     private JaratDAO jaratDAO;
 
-    @GetMapping(value ="mukodj")
+   // @GetMapping(value ="mukodj")
     public String listJarat() {
         List<Jarat> jaratList = jaratDAO.listJarat();
         for (int i = 0; i < jaratList.size(); i++) {

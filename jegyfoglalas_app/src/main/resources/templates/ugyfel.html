@@ -6,6 +6,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link rel='stylesheet' href='/stilus.css' >
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+
+
     <title>Ügyfelek</title>
 </head>
 
@@ -19,36 +23,44 @@
     </div>
 </nav>
 
-<body>
-<h2>Ügyfél hozzáadása</h2>
-<form action="#" th:action="@{/ugyfel_hozzaadasa}" method="post">
-    <label>Név:</label><br>
-    <input type="text" name="nev" required><br>
-    <label>Lakcim:</label> <br/>
-    <input type="text" name="lakcim" required><br>
-    <label>Telefonszám:</label> <br/>
-    <input type="text" name="telefonszam" required> <br/>
-    <input type="submit" value="Hozzáadás" class="btn-sm btn-dark details" style="margin-top: 15px"></input>
-</form>
+<body style="background:#e7dbcd">
+<div style="margin-left: 20px">
+    <h2>Ügyfél hozzáadása</h2>
+    <form action="#" th:action="@{/ugyfel_hozzaadasa}" method="post">
+        <label>Név:</label><br>
+        <input type="text" name="nev" required><br>
+        <label>Lakcim:</label> <br/>
+        <input type="text" name="lakcim" required><br>
+        <label>Telefonszám:</label> <br/>
+        <input type="text" name="telefonszam" required> <br/>
+        <input type="submit" value="Hozzáadás" class="btn-sm btn-dark details" style="margin-top: 15px">
+    </form>
 
-<h2>Termékek:</h2>
-<table>
-    <thead>
-    <tr>
-        <th>Név</th>
-        <th>Lakcím</th>
-        <th>Telefonszám</th>
-    </tr>
-    </thead>
-    <tbody style="width: 20%; margin: 50px;padding: 80px">
-    <!--span th:each="task,iter : ${foo.tasks}"-->
-    <tr th:each="ugyfel: ${ugyfelek}">
-        <td th:text="${ugyfel.nev}"></td>
-        <td th:text="${ugyfel.lakcim}"></td>
-        <td th:text="${ugyfel.telefonszam}"></td>
-    </tr>
-    </tbody>
-</table>
+</div>
+<div style="margin-left: 20px">
+    <h2>Ügyfelek:</h2>
+    <table class="table">
+        <thead class="thead-dark">
+        <tr>
+            <th>Név</th>
+            <th>Lakcím</th>
+            <th>Telefonszám</th>
+        </tr>
+        </thead>
+        <tbody style="width: 20%; margin: 50px;padding: 80px">
+        <!--span th:each="task,iter : ${foo.tasks}"-->
+        <tr th:each="ugyfel: ${ugyfelek}">
+            <td th:text="${ugyfel.nev}"></td>
+            <td th:text="${ugyfel.lakcim}"></td>
+            <td th:text="${ugyfel.telefonszam}"></td>
+            <td>
+                <a th:href="@{'/ugyfel_site/' + ${ugyfel.ugyfel_azonosito}}">Törlés</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
 
 
 </body>

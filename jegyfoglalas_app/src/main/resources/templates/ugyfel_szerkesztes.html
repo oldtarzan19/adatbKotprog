@@ -19,16 +19,22 @@
     </div>
 </nav>
 <body style="background:#e7dbcd">
-<h2>Ügyfél szerkesztése</h2>
-<form action="#" th:action="@{/ugyfel_edit}" th:object="${ugyfel}" method="post">
-    <input type="hidden" name="ugyfel_azonosito" th:field="*{ugyfel_azonosito}">
-    <label>Név:</label><br>
-    <input type="text" name="nev" th:field="*{nev}" required><br>
-    <label>Lakcim:</label> <br/>
-    <input type="text" name="lakcim" th:field="*{lakcim}" required><br>
-    <label>Telefonszám:</label> <br/>
-    <input type="text" name="telefonszam" th:field="*{telefonszam}" required> <br/>
-    <input type="submit" value="Szerkeszt" class="btn-sm btn-dark details" style="margin-top: 15px">
-</form>
+<div style="margin-left: 20px">
+
+    <h2>Ügyfél szerkesztése</h2>
+    <form action="#" th:action="@{/ugyfel_edit}" th:object="${ugyfel}" method="post">
+        <input type="hidden" name="ugyfel_azonosito" th:field="*{ugyfel_azonosito}">
+        <label>Név:</label><br>
+        <input type="text" name="nev" th:field="*{nev}" required><br>
+        <label>Lakcim:</label> <br/>
+        <input type="text" name="lakcim" th:field="*{lakcim}" required><br>
+        <label>Telefonszám:</label> <br/>
+        <input type="text" name="telefonszam" th:field="*{telefonszam}" required> <br/>
+        <input type="submit" value="Szerkeszt" class="btn-sm btn-dark details" style="margin-top: 15px">
+    </form>
+
+</div>
+
+
 </body>
 </html>

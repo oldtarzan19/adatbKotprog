@@ -23,6 +23,7 @@ public class Osszetett_sql extends JdbcDaoSupport {
 
     /**
      * Ezzel ki lehet listázni, hogy adott varosbol melyikbe lehet eljutni
+     * Ezt át lehet alakítani hotel kereső fugvénnyé, alkérdéssel
      * @return Varos lista
      */
     public List<Varos> varosbolMelyVarosba(int varos_id){

@@ -34,16 +34,26 @@ public class JaratController {
         return "redirect:/";
     }
 
+    /**
+     * Ezzel tudom kinyerni a formbol a select által átaditt dolgokat és
+     * @param model
+     * @param session
+     * @param request
+     * @return Csak visszavisz az adott oldalra és újra betölti a varos modelbe a dolgokat.
+     */
 
     @RequestMapping(value={"/jarat_listazas"},method = RequestMethod.POST)
     public String getInduloVaros(Model model, HttpSession session, HttpServletRequest request ) {
        String id_string = request.getParameter("varos_kod");
        int id = Integer.parseInt(id_string);
-        Varos varos = varosDAO.getVarosByVarosKod(id);
-        System.out.println(varos.getNev());
+        List<Varos> elerhetoVarosokListaja = osszetett_sql.varosbolMelyVarosba(id);
+
+        for (int i = 0; i < elerhetoVarosokListaja.size(); i++) {
+            System.out.println(elerhetoVarosokListaja.get(i).getNev());
+        }
+
 
         model.addAttribute("varosok",varosDAO.listVarosok());
-
         return "jaratok";
     }
 

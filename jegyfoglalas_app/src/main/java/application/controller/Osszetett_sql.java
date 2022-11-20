@@ -21,7 +21,7 @@ public class Osszetett_sql extends JdbcDaoSupport {
 
 
     /**
-     * Ezzel ki lehet listázni, hogy melyik városbol melyik v.-be lehet eljutni.
+     * Ezzel ki lehet listázni, hogy adott varosbol melyikbe lehet eljutni
      * @return Varos lista
      */
     public List<Varos> varosbolMelyVarosba(int varos_id){

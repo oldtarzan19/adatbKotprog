@@ -22,8 +22,18 @@
 </nav>
 <body style="background:#e7dbcd">
 
-
-<h1>Jaratok</h1>
+<div>
+    <h2>Hova szeretnél eljutni</h2>
+    <form action="#" method="post">
+        <label for="cars">Válassz egy várost:</label>
+        <select  id="cars">
+            <option th:each="varos: ${varosok}" th:value="${varos.varos_kod}" th:name="${varos.varos_kod}" th:text="${varos.nev}">
+            </option>
+        </select>
+        <br><br>
+        <input type="submit" value="Submit">
+    </form>
+</div>
 
 
 </body>

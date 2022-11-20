@@ -9,6 +9,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -31,18 +33,23 @@ public class JaratController {
         }
         return "redirect:/";
     }
-    @PostMapping("/kill")
-    public String getInduloVaros(@ModelAttribute("id") int id) {
-       List<Varos> varos = osszetett_sql.varosbolMelyVarosba(1);
-        for (int i = 0; i < varos.size(); i++) {
-            System.out.println(varos.get(i).toString());
-        }
 
-        return "redirect:/";
+
+    @RequestMapping(value={"/jarat_listazas"},method = RequestMethod.POST)
+    public String getInduloVaros(Model model, HttpSession session, HttpServletRequest request ) {
+       String id_string = request.getParameter("varos_kod");
+       int id = Integer.parseInt(id_string);
+        Varos varos = varosDAO.getVarosByVarosKod(id);
+        System.out.println(varos.getNev());
+
+        model.addAttribute("varosok",varosDAO.listVarosok());
+
+        return "jaratok";
     }
 
+
     @GetMapping(value = "jaratok_site")
-    public String ugyfelekListazasa(Model model) {
+    public String elerhetoVarosokListazasa(Model model) {
         model.addAttribute("varosok",varosDAO.listVarosok());
         return "jaratok";
     }

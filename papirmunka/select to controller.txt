@@ -1,0 +1,24 @@
+
+Így kell a selectel értéket visszaadni a controllernek
+
+
+<form role="form" id="sendAddress" th:action=@{/sendAddress} method="post">
+        <select class="form-control" name="nameOfCity">
+            <option value="">Select City</option>
+            <option value="HYD">Hyderabad</option>
+            <option value="MUM">Mumbai</option>
+            <option value="DEL">Delhi</option>
+        </select>
+
+        <input type="submit" value="Submit">
+    </form>
+	
+
+@RequestMapping(value={"/sendAddress"},method = RequestMethod.POST)
+    public String messageCenterHome(Model model, HttpSession session, HttpServletRequest request) {
+
+        String selectedCity= request.getParameter("nameOfCity");
+        System.out.println(selectedCity);
+
+        return "redirect:/";
+    }

@@ -35,4 +35,9 @@ public class HtmlController {
     public String getUgyfelSzerkesztes(){
         return "ugyfel_szerkesztes";
     }
+
+    @GetMapping(value = "ugyfel_site_edit/vissza")
+    public String visszaAzIndexre(){
+        return "redirect:/ugyfel_site";
+    }
 }

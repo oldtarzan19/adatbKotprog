@@ -79,4 +79,9 @@ public class UgyfelDAO extends JdbcDaoSupport {
         });
     }
 
+    public void updateUgyfel(int ugyfel_azonoito, String name, String lakcim, String telefonszam) {
+        String sql = "UPDATE ugyfel SET nev='" + name + "', lakcim='" + lakcim + "', telefonszam='" + telefonszam + "' WHERE ugyfel_azonosito=" + ugyfel_azonoito;
+        getJdbcTemplate().update(sql);
+    }
+
 }

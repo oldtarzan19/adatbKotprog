@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 
 import java.util.List;
 
@@ -46,5 +47,21 @@ public class UgyfelController {
         ugyfelDAO.deleteUgyfel(id);
 
         return "redirect:/ugyfel_site";
+    }
+
+    @RequestMapping("/ugyfel_site_edit/{ugyfel_azonosito}")
+    public ModelAndView showEditStudentPage(@PathVariable(name = "ugyfel_azonosito") int id) {
+        ModelAndView mav = new ModelAndView("ugyfel_szerkesztes");
+        Ugyfel ugyfel = ugyfelDAO.getUgyfelByAzonosito(id);
+        mav.addObject("ugyfel", ugyfel);
+        return mav;
+    }
+
+    @PostMapping(value = "/ugyfel_edit")
+    public String ugyfelEdit(@RequestParam("ugyfel_azonosito") String ugyfel_azonosito, @RequestParam("nev") String nev, @RequestParam("lakcim") String lakcim, @RequestParam("telefonszam") String telefonszam, Model model){
+        int id = Integer.parseInt(ugyfel_azonosito);
+        ugyfelDAO.updateUgyfel(id,nev,lakcim,telefonszam);
+        model.addAttribute("ugyfelek",ugyfelDAO.listUgyfel());
+        return "ugyfel";
     }
 }

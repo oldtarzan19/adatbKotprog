@@ -2,9 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Szerkesztés</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel='stylesheet' href='/stilus.css' >
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css">
+
+
+    <title>Ügyfelek szerkesztése</title>
 </head>
-<body>
-<h2>Ugyfel szerkesztés</h2>
+
+<nav>
+    <div class="navigacio">
+        <a href="vissza">Vissza</a>
+    </div>
+</nav>
+<body style="background:#e7dbcd">
+<h2>Ügyfél szerkesztése</h2>
+<form action="#" th:action="@{/ugyfel_edit}" th:object="${ugyfel}" method="post">
+    <input type="hidden" name="ugyfel_azonosito" th:field="*{ugyfel_azonosito}">
+    <label>Név:</label><br>
+    <input type="text" name="nev" th:field="*{nev}" required><br>
+    <label>Lakcim:</label> <br/>
+    <input type="text" name="lakcim" th:field="*{lakcim}" required><br>
+    <label>Telefonszám:</label> <br/>
+    <input type="text" name="telefonszam" th:field="*{telefonszam}" required> <br/>
+    <input type="submit" value="Szerkeszt" class="btn-sm btn-dark details" style="margin-top: 15px">
+</form>
 </body>
 </html>

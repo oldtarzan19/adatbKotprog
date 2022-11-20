@@ -23,7 +23,7 @@
 <body style="background:#e7dbcd">
 
 <div>
-    <h2>Hova szeretnél eljutni</h2>
+    <h2>Honnan szeretnél elindulni:</h2>
 
     <form action="#" th:action="@{/jarat_listazas}" method="post">
         <label for="cars">Válassz egy várost:</label>
@@ -32,9 +32,47 @@
             </option>
         </select>
         <br><br>
-        <input type="submit" value="Submit">
+        <input type="submit" value="Elküld">
     </form>
 </div>
+
+<div style="margin-top: 20px">
+
+    <h2>A városból induló járatok:</h2>
+    <table class="table" style="border: black">
+        <thead class="thead-dark">
+        <tr>
+            <th>Járat száma</th>
+            <th>Járat típusa</th>
+            <th>Sofőr neve</th>
+            <th>Max férőhelyek száma</th>
+            <th>Max sebesség</th>
+            <th>Indulás ideje</th>
+            <th>Érkezés ideje</th>
+            <th>Végállomás</th>
+        </tr>
+        </thead>
+        <tbody style="width: 20%; margin: 50px;padding: 80px">
+        <!--span th:each="task,iter : ${foo.tasks}"-->
+        <tr th:each="jarat: ${elerheto_jaratok}">
+            <td th:text="${jarat.jarat_szam}"></td>
+            <td th:text="${jarat.jarat_tipus}"></td>
+            <td th:text="${jarat.sofor_nev}"></td>
+
+            <td th:text="${jarat.ferohelyek_szama}"></td>
+            <td th:text="${jarat.max_sebesseg}"></td>
+            <td th:text="${jarat.indulas_ideje}"></td>
+            <td th:text="${jarat.erkezes_ideje}"></td>
+            <td th:text="${jarat.vegallomasvaros_string}"></td>
+            <td>
+
+            </td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
 
 
 </body>

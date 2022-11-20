@@ -46,13 +46,15 @@ public class JaratController {
     public String getInduloVaros(Model model, HttpSession session, HttpServletRequest request ) {
        String id_string = request.getParameter("varos_kod");
        int id = Integer.parseInt(id_string);
-        List<Varos> elerhetoVarosokListaja = osszetett_sql.varosbolMelyVarosba(id);
 
-        for (int i = 0; i < elerhetoVarosokListaja.size(); i++) {
-            System.out.println(elerhetoVarosokListaja.get(i).getNev());
+        List<Jarat> jaratList = osszetett_sql.varosbolMiIndul(id);
+        for (int i = 0; i < jaratList.size(); i++) {
+            jaratList.get(i).setVegallomasvaros_string(
+                    varosDAO.getVarosByVarosKod(jaratList.get(i).getVegallomasvaros_kod()).getNev()
+            );
         }
 
-
+        model.addAttribute("elerheto_jaratok",jaratList);
         model.addAttribute("varosok",varosDAO.listVarosok());
         return "jaratok";
     }

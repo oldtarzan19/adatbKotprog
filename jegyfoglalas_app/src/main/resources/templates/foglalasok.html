@@ -26,7 +26,7 @@
 <div>
     <h2>Járat foglalás:</h2>
 
-    <form action="#"  method="post">
+    <form action="#" th:action="@{/foglalas_hozzaadasa}" method="post">
 
         <label for="foglalas_ugyfel">Ügyfél:</label>
 
@@ -38,7 +38,8 @@
         <label style="margin-top: 30px" for="foglalas_jarat">Járatok:</label>
 
         <select name="foglalo_jarat" id="foglalas_jarat">
-            <option th:each="jarat: ${foglalas_jaratok}" th:value="${jarat.jarat_szam}" th:name="${jarat.jarat_szam}" th:text="|Járat szám: ${jarat.jarat_szam} Induló város: ${jarat.indulovaros_string}, Végállomás: ${jarat.vegallomasvaros_string}, Indulás: ${jarat.indulas_ideje}|">
+            <option th:each="jarat: ${foglalas_jaratok}" th:value="${jarat.jarat_szam}" th:name="${jarat.jarat_szam}" th:text="|Járat szám: ${jarat.jarat_szam},
+            Induló város: ${jarat.indulovaros_string}, Végállomás: ${jarat.vegallomasvaros_string}, Indulás: ${jarat.indulas_ideje}, Tipus: ${jarat.jarat_tipus}|">
             </option>
         </select>
 

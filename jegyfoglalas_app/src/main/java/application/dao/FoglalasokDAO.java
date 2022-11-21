@@ -2,6 +2,8 @@ package application.dao;
 
 import application.model.Foglalasok;
 import application.model.Hotel;
+import application.model.Jarat;
+import application.model.Ugyfel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -49,6 +51,13 @@ public class FoglalasokDAO extends JdbcDaoSupport {
     public void deleteFoglalas(int jaratszam,int ugyfel_azonosito, String foglalas_idopontja, int helyszam ) {
         String sql = "DELETE FROM foglalas WHERE jaratszam=" + jaratszam + " AND ugyfel_azonosito=" + ugyfel_azonosito + " AND foglalas_idopontja" + foglalas_idopontja + " AND helyszam"+ helyszam;
         getJdbcTemplate().update(sql);
+    }
+
+    public void insertFoglalas(Ugyfel ugyfel, Jarat jarat, int helyszam) {
+        String sql = "INSERT INTO foglalasok(jaratszam,ugyfel_azonosito, helyszam) VALUES (?,?,?)";
+        getJdbcTemplate().update(sql, new Object[] {
+                jarat.getJarat_szam(),ugyfel.getUgyfel_azonosito(),helyszam
+        });
     }
 
 }

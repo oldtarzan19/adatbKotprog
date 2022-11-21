@@ -18,6 +18,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.Random;
+
 @Controller
 public class FoglalasokController {
 
@@ -32,6 +35,9 @@ public class FoglalasokController {
 
     @Autowired
     private VarosDAO varosDAO;
+
+    @Autowired
+    private Osszetett_sql osszetett_sql;
 
    // @GetMapping(value ="mukodj")
     public String listFoglalasok() {
@@ -67,6 +73,50 @@ public class FoglalasokController {
     }
 
     /**
+     * Random ad egy helyszámot, de csak olyat ami éppen nem foglalt.
+     * @param helyek_helyek_listaja Egy SQL lekérdezés által létrehozott lista. A foglalt helyeket tartalmazza.
+     * @param foglalt_jarat Az a járat amire foglalunk. Ebből nyerjük ki a járat számot.
+     * @return Egy helyszám ami nem foglalt.
+     */
+    public int helyKiosztas(List<Integer> helyek_helyek_listaja, Jarat foglalt_jarat){
+        Random rand = new Random();
+        if(Objects.equals(foglalt_jarat.getJarat_tipus(), "Repülő")){
+            int range = 200 - 1 + 1;
+
+           int random = rand.nextInt(range) + 1;
+            while(helyek_helyek_listaja.contains(random)) {
+                random = rand.nextInt(range) + 1;
+            }
+
+            return random;
+        }
+
+        if (Objects.equals(foglalt_jarat.getJarat_tipus(),"Vonat")){
+            int range = 150 - 1 + 1;
+
+            int random = rand.nextInt(range) + 1;
+            while(helyek_helyek_listaja.contains(random)) {
+                random = rand.nextInt(range) + 1;
+            }
+
+            return random;
+        }
+
+        if (Objects.equals(foglalt_jarat.getJarat_tipus(), "Busz")){
+            int range = 23 - 1 + 1;
+
+            int random = rand.nextInt(range) + 1;
+            while(helyek_helyek_listaja.contains(random)) {
+                random = rand.nextInt(range) + 1;
+            }
+
+            return random;
+        }
+        return 0;
+    }
+
+
+    /**
      * Ezzel a fugvennyel hozzaadom a foglalast az adatb-hez, bekerem a from id-it.
      * @param model
      * @param session
@@ -85,9 +135,8 @@ public class FoglalasokController {
         Ugyfel foglalo_ugyfel = ugyfelDAO.getUgyfelByAzonosito(ugyfel_id);
         Jarat foglalt_jarat = jaratDAO.getJaratByJaratSzam(jarat_id);
 
-
-        System.out.println(""+foglalo_ugyfel.getNev()+" "+foglalt_jarat.getJarat_szam());
-
+        int helyszam = helyKiosztas(osszetett_sql.foglaltHelyek(foglalt_jarat.getJarat_szam()),foglalt_jarat);
+        foglalasokDAO.insertFoglalas(foglalo_ugyfel,foglalt_jarat,helyszam);
 
 
 
@@ -101,6 +150,7 @@ public class FoglalasokController {
                     varosDAO.getVarosByVarosKod(jaratList.get(i).getVegallomasvaros_kod()).getNev()
             );
         }
+
 
         model.addAttribute("foglalas_ugyfelek",ugyfelDAO.listUgyfel());
         model.addAttribute("foglalas_jaratok",jaratList);

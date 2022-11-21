@@ -85,5 +85,26 @@ public class Osszetett_sql extends JdbcDaoSupport {
         return result;
     }
 
+    /**
+     * SQL lekérdéz segítségével megnézi hogy az adott jarat_számu járművön mely szekek foglaltak.
+     * @return A foglalt székek számából álló lista.
+     */
+    List<Integer> foglaltHelyek(int jarat_szam){
+        String sql = "SELECT helyszam\n" +
+                "FROM foglalasok, jarat\n" +
+                "WHERE jarat.jarat_szam = foglalasok.jaratszam AND\n" +
+                "jaratszam = " + jarat_szam;
+        List <Map< String, Object >> rows = getJdbcTemplate().queryForList(sql);
+
+        List<Integer> helyszamok = new ArrayList<Integer>();
+
+        for (Map<String, Object> row : rows) {
+            String hely = row.get("helyszam").toString();
+            int hely_szam = Integer.parseInt(hely);
+            helyszamok.add(hely_szam);
+        }
+        return helyszamok;
+    }
+
 
 }

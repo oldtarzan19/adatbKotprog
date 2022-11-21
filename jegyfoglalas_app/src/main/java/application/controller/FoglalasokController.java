@@ -13,6 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.thymeleaf.expression.Lists;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -67,6 +68,12 @@ public class FoglalasokController {
             );
         }
 
+        List<Foglalasok> foglalasokFromDataBase = foglalasokDAO.listFoglalasok();
+        List<Foglalasok> stringFoglalasok = toStringConverter(foglalasokFromDataBase);
+
+
+
+         model.addAttribute("foglalt_jegyek",stringFoglalasok);
          model.addAttribute("foglalas_ugyfelek",ugyfelDAO.listUgyfel());
          model.addAttribute("foglalas_jaratok",jaratList);
         return "foglalasok";
@@ -117,7 +124,7 @@ public class FoglalasokController {
 
 
     /**
-     * Ezzel a fugvennyel hozzaadom a foglalast az adatb-hez, bekerem a from id-it.
+     * Ezzel a fugvennyel hozzaadom a foglalast az adatb-hez, bekerem a from id-it, kiosztom a helyeket a vonaton, és beküldöm a foglalást az adatbázisba.
      * @param model
      * @param session
      * @param request
@@ -137,9 +144,14 @@ public class FoglalasokController {
 
         int helyszam = helyKiosztas(osszetett_sql.foglaltHelyek(foglalt_jarat.getJarat_szam()),foglalt_jarat);
         foglalasokDAO.insertFoglalas(foglalo_ugyfel,foglalt_jarat,helyszam);
+        //
 
+        List<Foglalasok> foglalasokFromDataBase = foglalasokDAO.listFoglalasok();
+        List<Foglalasok> stringFoglalasok = toStringConverter(foglalasokFromDataBase);
 
+        // TODO Fordított sorrendebn hozzáadni az elemeket a weblaphoz.
 
+        //
         List<Jarat> jaratList = jaratDAO.listJarat();
         for (int i = 0; i < jaratList.size(); i++) {
             jaratList.get(i).setIndulovaros_string(
@@ -151,12 +163,31 @@ public class FoglalasokController {
             );
         }
 
-
+        model.addAttribute("foglalt_jegyek",stringFoglalasok);
         model.addAttribute("foglalas_ugyfelek",ugyfelDAO.listUgyfel());
         model.addAttribute("foglalas_jaratok",jaratList);
         return "foglalasok";
 
 
+    }
+
+    /**
+     * Megcsinálja a beérkező Foglalás adatokbol a stinges formátumot.
+     * @param input_list
+     * @return Frissített input list.
+     */
+    public List<Foglalasok> toStringConverter(List<Foglalasok> input_list){
+        for (int i = 0; i < input_list.size(); i++) {
+            input_list.get(i).setUgyfel_nev_string(ugyfelDAO.getUgyfelByAzonosito(input_list.get(i).getUgyfel_azonosito()).getNev());
+            input_list.get(i).setJaratszam_string(Integer.toString(jaratDAO.getJaratByJaratSzam(input_list.get(i).getJaratszam()).getJarat_szam()));
+
+            input_list.get(i).setIndulovaros_string(varosDAO.getVarosByVarosKod(jaratDAO.getJaratByJaratSzam(input_list.get(i).getJaratszam()).getIndulovaros_kod()).getNev());
+            input_list.get(i).setVegallomasvaros_string(varosDAO.getVarosByVarosKod(jaratDAO.getJaratByJaratSzam(input_list.get(i).getJaratszam()).getVegallomasvaros_kod()).getNev());
+
+            input_list.get(i).setIndulas_ideje_string(jaratDAO.getJaratByJaratSzam(input_list.get(i).getJaratszam()).getIndulas_ideje());
+            input_list.get(i).setErkezes_ideje_string(jaratDAO.getJaratByJaratSzam(input_list.get(i).getJaratszam()).getErkezes_ideje());
+        }
+        return input_list;
     }
 
 }

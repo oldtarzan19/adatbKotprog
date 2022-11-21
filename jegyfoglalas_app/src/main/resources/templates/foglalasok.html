@@ -23,7 +23,7 @@
 </nav>
 
 <body style="background:#e7dbcd">
-<div>
+<div style="margin-left: 20px">
     <h2>Járat foglalás:</h2>
 
     <form action="#" th:action="@{/foglalas_hozzaadasa}" method="post">
@@ -55,19 +55,30 @@
         <tr>
             <th>Név</th>
             <th>Járatszám:</th>
+            <th>Induló város:</th>
+            <th>Végállomás város:</th>
+            <th>Indulás ideje:</th>
+            <th>Érkezés ideje:</th>
+            <th>Foglalás időpontja:</th>
+            <th>Törlés:</th>
+            <th>Szerkesztés:</th>
         </tr>
         </thead>
         <tbody style="width: 20%; margin: 50px;padding: 80px">
         <!--span th:each="task,iter : ${foo.tasks}"-->
-        <tr th:each="ugyfel: ${ugyfelek}">
-            <td th:text="${ugyfel.nev}"></td>
-            <td th:text="${ugyfel.lakcim}"></td>
-            <td th:text="${ugyfel.telefonszam}"></td>
+        <tr th:each="jegyek: ${foglalt_jegyek}">
+            <td th:text="${jegyek.ugyfel_nev_string}"></td>
+            <td th:text="${jegyek.jaratszam_string}"></td>
+            <td th:text="${jegyek.indulovaros_string}"></td>
+            <td th:text="${jegyek.vegallomasvaros_string}"></td>
+            <td th:text="${jegyek.indulas_ideje_string}"></td>
+            <td th:text="${jegyek.erkezes_ideje_string}"></td>
+            <td th:text="${jegyek.foglalas_idopontja}"></td>
             <td>
-                <a th:href="@{'/ugyfel_site/' + ${ugyfel.ugyfel_azonosito}}">Törlés</a>
+                Törlés (Link, de még nincs kész)
             </td>
             <td>
-                <a th:href="@{'/ugyfel_site_edit/' + ${ugyfel.ugyfel_azonosito}}">Szerkesztés</a>
+                Szerkesztés (Link, de még nincs kész)
             </td>
         </tr>
         </tbody>

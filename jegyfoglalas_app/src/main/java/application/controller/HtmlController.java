@@ -21,10 +21,10 @@ public class HtmlController {
         return "jaratok";
     } */
 
-    @GetMapping(value = "foglalasok_site")
+   /* @GetMapping(value = "foglalasok_site")
     public String getFoglalasok(){
         return "foglalasok";
-    }
+    } */
 
     @GetMapping(value = "szallasok_site")
     public String getSzallasok(){

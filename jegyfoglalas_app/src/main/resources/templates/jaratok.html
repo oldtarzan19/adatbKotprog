@@ -26,8 +26,8 @@
     <h2>Honnan szeretnél elindulni:</h2>
 
     <form action="#" th:action="@{/jarat_listazas}" method="post">
-        <label for="cars">Válassz egy várost:</label>
-        <select name="varos_kod" id="cars">
+        <label for="jarat">Válassz egy várost:</label>
+        <select name="varos_kod" id="jarat">
             <option th:each="varos: ${varosok}" th:value="${varos.varos_kod}" th:name="${varos.varos_kod}" th:text="${varos.nev}">
             </option>
         </select>

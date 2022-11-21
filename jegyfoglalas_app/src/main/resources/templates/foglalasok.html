@@ -23,6 +23,30 @@
 </nav>
 
 <body style="background:#e7dbcd">
-<h1>Foglalasok</h1>
+<div>
+    <h2>Járat foglalás:</h2>
+
+    <form action="#"  method="post">
+
+        <label for="foglalas_ugyfel">Ügyfél:</label>
+
+        <select name="foglalo_ugyfel" id="foglalas_ugyfel">
+            <option th:each="ugyfel: ${foglalas_ugyfelek}" th:value="${ugyfel.ugyfel_azonosito}" th:name="${ugyfel.ugyfel_azonosito}" th:text="${ugyfel.nev}">
+            </option>
+        </select>
+            <br>
+        <label style="margin-top: 30px" for="foglalas_jarat">Járatok:</label>
+
+        <select name="foglalo_jarat" id="foglalas_jarat">
+            <option th:each="jarat: ${foglalas_jaratok}" th:value="${jarat.jarat_szam}" th:name="${jarat.jarat_szam}" th:text="|Járat szám: ${jarat.jarat_szam} Induló város: ${jarat.indulovaros_string}, Végállomás: ${jarat.vegallomasvaros_string}, Indulás: ${jarat.indulas_ideje}|">
+            </option>
+        </select>
+
+        <br><br>
+        <input type="submit" value="Elküld">
+    </form>
+</div>
+
+
 </body>
 </html>

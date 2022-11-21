@@ -16,6 +16,8 @@ public class Jarat {
 
     private String vegallomasvaros_string;
 
+    private String indulovaros_string;
+
     public Jarat() {
     }
 
@@ -30,6 +32,7 @@ public class Jarat {
         this.indulovaros_kod = indulovaros_kod;
         this.vegallomasvaros_kod = vegallomasvaros_kod;
         this.vegallomasvaros_string ="";
+        this.indulovaros_string="";
     }
 
     public Jarat(String jarat_tipus, String sofor_nev, int ferohelyek_szama, int max_sebesseg, String indulas_ideje, String erkezes_ideje, int indulovaros_kod, int vegallomasvaros_kod) {
@@ -42,6 +45,7 @@ public class Jarat {
         this.indulovaros_kod = indulovaros_kod;
         this.vegallomasvaros_kod = vegallomasvaros_kod;
         this.vegallomasvaros_string ="";
+        this.indulovaros_string="";
     }
 
     public int getJarat_szam() {
@@ -124,6 +128,14 @@ public class Jarat {
         this.vegallomasvaros_string = vegallomasvaros_string;
     }
 
+    public String getIndulovaros_string() {
+        return indulovaros_string;
+    }
+
+    public void setIndulovaros_string(String indulovaros_string) {
+        this.indulovaros_string = indulovaros_string;
+    }
+
     @Override
     public String toString() {
         return "Jarat{" +
@@ -137,6 +149,7 @@ public class Jarat {
                 ", indulovaros_kod=" + indulovaros_kod +
                 ", vegallomasvaros_kod=" + vegallomasvaros_kod +
                 ", vegallomasvaros_string='" + vegallomasvaros_string + '\'' +
+                ", indulovaros_string='" + indulovaros_string + '\'' +
                 '}';
     }
 }

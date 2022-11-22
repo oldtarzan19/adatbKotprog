@@ -6,6 +6,7 @@ import application.model.Szallas;
 import application.model.Varos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.ArrayList;
@@ -31,6 +32,13 @@ public class SzallasController {
         }
         return "redirect:/";
     }
+
+    @GetMapping(value = "szallasok_site")
+    public String getSzallasok(Model model){
+        model.addAttribute("varosok",varosDAO.listVarosok());
+        return "szallasok";
+    }
+
 
     /***
      * Ezzel a metoddal lehet listázni azokat a városokat amiben vannak a Szállások

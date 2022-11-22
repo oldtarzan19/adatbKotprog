@@ -26,10 +26,10 @@ public class HtmlController {
         return "foglalasok";
     } */
 
-    @GetMapping(value = "szallasok_site")
+   /* @GetMapping(value = "szallasok_site")
     public String getSzallasok(){
         return "szallasok";
-    }
+    } */
 
     @GetMapping(value = "ugyfel_szerkesztes_site")
     public String getUgyfelSzerkesztes(){

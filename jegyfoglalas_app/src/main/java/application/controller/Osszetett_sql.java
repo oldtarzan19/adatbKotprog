@@ -38,10 +38,10 @@ public class Osszetett_sql extends JdbcDaoSupport {
     public List<Szallas> hotelKereso(int csillagok_szama, int van_e_medence, int varos_id, int mit_keres){
         List <Szallas> result = new ArrayList< Szallas >();
 
-        String sql = "SELECT * \n" +
-                "FROM szallas\n" +
-                "WHERE szallas.szallas_id NOT IN (SELECT hotel.szallas_id from hotel WHERE hotel.csillagok_szama= "+csillagok_szama + " AND hotel.van_e_medence = "+van_e_medence + ") AND szallas.varos_kod = "+ varos_id;
-
+        String sql = "SELECT *\n" +
+                "FROM szallas, hotel\n" +
+                "WHERE szallas.szallas_id NOT IN (SELECT hotel.szallas_id FROM hotel) AND szallas.varos_kod = "+ varos_id +"\n" +
+                "GROUP BY szallas.szallas_id";
         // 1 ha hotel
         if(mit_keres == 1){
              sql = "SELECT * \n" +

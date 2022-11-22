@@ -23,23 +23,74 @@
 </nav>
 
 <body style="background:#e7dbcd">
-<div style="margin-left: 20px">
+<div style="margin-left: 20px; width:22%; float: left;">
     <h2 style="margin-bottom: 10px">Szállások listázása:</h2>
-    <form action="#"  method="post">
+
+    <form action="#" th:action="@{/szallasok_listazasa}" method="post">
         <label for="jarat">Válassz egy várost:</label>
         <select name="varos_kod" id="jarat">
             <option th:each="varos: ${varosok}" th:value="${varos.varos_kod}" th:name="${varos.varos_kod}" th:text="${varos.nev}">
             </option>
         </select>
-        <br><br>
+        <br>
+
+        <div style="margin-top:10px">
+            <label> Válassz egy típust: </label><br>
+            <input type="radio" id="szallas" name="hotel_e" value="0" checked>
+            <label for="szallas">Szállás</label><br>
+            <input type="radio" id="hotel" name="hotel_e" value="1">
+            <label for="hotel">Hotel</label><br>
+        </div>
+
+        <br>
+
+        <div style="margin-top:10px">
+            <label style="font-weight:bold">Ha hotelt választottál:</label><br>
+            <label style="margin: 10px 0px">Csillagok száma:</label><br>
+            <select name="csillagok_szama">
+                <option value="1" name="1" >1 csillag</option>
+                <option value="2" name="2" >2 csillag</option>
+                <option value="3" name="3" >3 csillag</option>
+                <option value="4" name="4" >4 csillag</option>
+                <option value="5" name="5" >5 csillag</option>
+            </select>
+            <br>
+            <label style="margin-top:10px"> Van-e medence? </label><br>
+            <input type="radio" id="van_medence" name="van_e_medence" value="1" checked>
+            <label for="van_medence">Van medence</label><br>
+            <input type="radio" id="nincs_medence" name="van_e_medence" value="0">
+            <label for="nincs_medence">Nincs medence</label><br>
+
+        </div>
+
+        <br>
         <input type="submit" value="Elküld">
     </form>
 </div>
 
 
+<div style="float: right; width: 76%">
+
+
+    <table class="table" style="border: black">
+        <thead class="thead-dark">
+        <tr>
+            <th>A hely neve:</th>
+            <th>Ft/fő/éj</th>
+        </tr>
+        </thead>
+        <tbody style="width: 20%; margin: 50px;padding: 80px">
+        <!--span th:each="task,iter : ${foo.tasks}"-->
+        <tr th:each="szallas: ${elerheto_szallasok}">
+            <td th:text="${szallas.nev}"></td>
+            <td th:text="${szallas.ar_per_ej}"></td>
+        </tr>
+        </tbody>
+    </table>
 
 
 
+</div>
 
 
 </body>

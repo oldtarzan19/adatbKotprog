@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.thymeleaf.expression.Lists;
@@ -149,7 +150,6 @@ public class FoglalasokController {
         List<Foglalasok> foglalasokFromDataBase = foglalasokDAO.listFoglalasok();
         List<Foglalasok> stringFoglalasok = toStringConverter(foglalasokFromDataBase);
 
-        // TODO Fordított sorrendebn hozzáadni az elemeket a weblaphoz.
 
         //
         List<Jarat> jaratList = jaratDAO.listJarat();
@@ -188,6 +188,23 @@ public class FoglalasokController {
             input_list.get(i).setErkezes_ideje_string(jaratDAO.getJaratByJaratSzam(input_list.get(i).getJaratszam()).getErkezes_ideje());
         }
         return input_list;
+    }
+
+    @RequestMapping("/foglalasok_site_delete/{jaratszam_string}")
+    public String deleteUgyfel(@PathVariable("jaratszam_string") String input_adatok) {
+
+        String[] adatok_string = input_adatok.split(",");
+
+        int jaratszam = Integer.parseInt(adatok_string[0]);
+        int ugyfel_azonosito = Integer.parseInt(adatok_string[1]);
+        String foglalas_idopontja = adatok_string[2];
+        // csak így imseri fel az sql
+        foglalas_idopontja = '"' +foglalas_idopontja+ '"';
+        int helyszam = Integer.parseInt(adatok_string[3]);
+
+        foglalasokDAO.deleteFoglalas(jaratszam,ugyfel_azonosito,foglalas_idopontja,helyszam);
+
+        return "redirect:/foglalasok_site";
     }
 
 }

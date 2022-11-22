@@ -49,7 +49,7 @@ public class FoglalasokDAO extends JdbcDaoSupport {
     }
 
     public void deleteFoglalas(int jaratszam,int ugyfel_azonosito, String foglalas_idopontja, int helyszam ) {
-        String sql = "DELETE FROM foglalas WHERE jaratszam=" + jaratszam + " AND ugyfel_azonosito=" + ugyfel_azonosito + " AND foglalas_idopontja" + foglalas_idopontja + " AND helyszam"+ helyszam;
+        String sql = "DELETE FROM foglalasok WHERE jaratszam= " + jaratszam + " AND ugyfel_azonosito= " + ugyfel_azonosito + " AND foglalas_idopontja= " +  foglalas_idopontja +  "AND helyszam= "+ helyszam;
         getJdbcTemplate().update(sql);
     }
 

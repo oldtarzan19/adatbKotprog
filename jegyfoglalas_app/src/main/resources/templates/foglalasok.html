@@ -61,7 +61,6 @@
             <th>Érkezés ideje:</th>
             <th>Foglalás időpontja:</th>
             <th>Törlés:</th>
-            <th>Szerkesztés:</th>
         </tr>
         </thead>
         <tbody style="width: 20%; margin: 50px;padding: 80px">
@@ -75,10 +74,7 @@
             <td th:text="${jegyek.erkezes_ideje_string}"></td>
             <td th:text="${jegyek.foglalas_idopontja}"></td>
             <td>
-                Törlés (Link, de még nincs kész)
-            </td>
-            <td>
-                Szerkesztés (Link, de még nincs kész)
+                <a th:href="@{'/foglalasok_site_delete/' + |${jegyek.jaratszam_string},${jegyek.ugyfel_azonosito},${jegyek.foglalas_idopontja},${jegyek.helyszam}|}">Törlés</a>
             </td>
         </tr>
         </tbody>

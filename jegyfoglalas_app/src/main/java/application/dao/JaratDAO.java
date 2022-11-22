@@ -1,6 +1,7 @@
 package application.dao;
 
 import application.model.Jarat;
+import application.model.Ugyfel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -91,4 +92,13 @@ public class JaratDAO extends JdbcDaoSupport {
         }
         return result.get(0);
     }
+
+    public void insertJarat(Jarat jarat) {
+        String sql = "INSERT INTO jarat(jarat_szam,jarat_tipus,sofor_nev,ferohelyek_szama,max_sebesseg,indulas_ideje, erkezes_ideje, indulovaros_kod,vegallomasvaros_kod) VALUES (?,?,?,?,?,?,?,?,?)";
+        getJdbcTemplate().update(sql, new Object[] {
+                jarat.getJarat_szam(), jarat.getJarat_tipus(), jarat.getSofor_nev(), jarat.getFerohelyek_szama(),jarat.getMax_sebesseg(),jarat.getIndulas_ideje(),jarat.getErkezes_ideje(),jarat.getIndulovaros_kod(), jarat.getVegallomasvaros_kod()
+        });
+    }
+
+    // TODO SET fg
 }

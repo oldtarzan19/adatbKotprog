@@ -40,4 +40,9 @@ public class HtmlController {
     public String visszaAzIndexre(){
         return "redirect:/ugyfel_site";
     }
+
+    @GetMapping(value = "admin_site")
+    public String getAdmin(){
+        return "admin";
+    }
 }

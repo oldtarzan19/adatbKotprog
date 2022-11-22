@@ -1,6 +1,9 @@
 package application.controller;
 
+import application.dao.SzallasDAO;
+import application.dao.VarosDAO;
 import application.model.Jarat;
+import application.model.Szallas;
 import application.model.Varos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -20,30 +23,54 @@ public class Osszetett_sql extends JdbcDaoSupport {
     @PostConstruct
     private void initialize() {setDataSource(dataSource);}
 
+    @Autowired
+    SzallasDAO szallasDAO;
+
 
     /**
-     * Ezzel ki lehet listázni, hogy adott varosbol melyikbe lehet eljutni
-     * Ezt át lehet alakítani hotel kereső fugvénnyé, alkérdéssel
-     * @return Varos lista
+     * A szallas oldalon listázza vagy azokat a szallasokat amik hotel minősítésűek vagy csak a szallasokat.
+     * @param csillagok_szama Ha hotelt keres akkor a csillagok_szama
+     * @param van_e_medence Ha hotelt keres van e medence
+     * @param varos_id Melyik varosban keres szallast v hotelt
+     * @param mit_keres Ha Hotelt keres akkor egy, minden más esetben csak szallast fog keresni.
+     * @return Szűrt szallasokbol allo lista.
      */
-    public List<Varos> varosbolMelyVarosba(int varos_id){
-        String sql = "SELECT varos.varos_kod ,varos.nev\n" +
-                "FROM jarat, varos\n" +
-                "WHERE varos.varos_kod in (SELECT jarat.vegallomasvaros_kod from varos, jarat WHERE varos.varos_kod = jarat.indulovaros_kod AND varos.varos_kod =" + varos_id +" ) \n" +
-                "GROUP BY varos.nev;";
+    public List<Szallas> hotelKereso(int csillagok_szama, int van_e_medence, int varos_id, int mit_keres){
+        List <Szallas> result = new ArrayList< Szallas >();
+
+        String sql = "SELECT * \n" +
+                "FROM szallas\n" +
+                "WHERE szallas.szallas_id NOT IN (SELECT hotel.szallas_id from hotel WHERE hotel.csillagok_szama= "+csillagok_szama + " AND hotel.van_e_medence = "+van_e_medence + ") AND szallas.varos_kod = "+ varos_id;
+
+        // 1 ha hotel
+        if(mit_keres == 1){
+             sql = "SELECT * \n" +
+                    "FROM szallas\n" +
+                    "WHERE szallas.szallas_id in (SELECT hotel.szallas_id from hotel WHERE hotel.csillagok_szama= "+csillagok_szama + " AND hotel.van_e_medence = "+van_e_medence + ") AND szallas.varos_kod = "+ varos_id;
+        }
+
+
+
         List <Map< String, Object >> rows = getJdbcTemplate().queryForList(sql);
 
-        List < Varos > result = new ArrayList< Varos >();
         for (Map<String, Object> row : rows) {
-            Varos varos = new Varos();
-            String id =  row.get("varos_kod").toString();
-            String nev =  row.get("nev").toString();
-            varos.setVaros_kod(Integer.parseInt(id));
-            varos.setNev(nev);
+            Szallas szallas = new Szallas();
 
-            result.add(varos);
+            String id =  row.get("szallas_id").toString();
+            String varos_kod =  row.get("varos_kod").toString();
+            String nev =  row.get("nev").toString();
+            String ar_per_ej =  row.get("ar_per_ej").toString();
+
+            szallas.setSzallas_id(Integer.parseInt(id));
+            szallas.setVaros_kod(Integer.parseInt(varos_kod));
+            szallas.setNev(nev);
+            szallas.setAr_per_ej(Integer.parseInt(ar_per_ej));
+
+
+            result.add(szallas);
         }
         return result;
+
     }
 
     /**

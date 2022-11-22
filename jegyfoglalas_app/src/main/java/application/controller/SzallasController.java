@@ -20,6 +20,9 @@ public class SzallasController {
     @Autowired
     private VarosDAO varosDAO;
 
+    @Autowired
+    private Osszetett_sql osszetett_sql;
+
    // @GetMapping(value ="mukodj")
     public String listSzallasok() {
         List<Szallas> szallasokList = szallasDAO.listSzallasok();

@@ -36,6 +36,7 @@ public class FoglalasokDAO extends JdbcDaoSupport {
             String jaratszam =  row.get("jaratszam").toString();
             String ugyfel_azonosito =  row.get("ugyfel_azonosito").toString();
             String foglalas_idopontja =  row.get("foglalas_idopontja").toString();
+            foglalas_idopontja = foglalas_idopontja.substring(0, foglalas_idopontja.length() - 2);
             String helyszam = row.get("helyszam").toString();
 
             foglalasok.setJaratszam(Integer.parseInt(jaratszam));

@@ -82,18 +82,16 @@ public class AdminController {
 
     }
 
-    public String listHotel(){
+    public String listHotel(Model model){
 
         List<Hotel> hotelList = hotelDAO.listHotel();
-
         for (int i = 0; i < hotelList.size(); i++) {
-            hotelList.get(i).setSzallas_nev(varosDAO.getVarosByVarosKod(hotelList.get(i).getSzallas_id()).getNev());
-            System.out.println(hotelList.get(i).toString());
+            hotelList.get(i).setSzallas_nev(szallasDAO.getSzallasBySzallasId(hotelList.get(i).getSzallas_id()).getNev());
         }
 
 
 
-       // model.addAttribute("hotelek",hotelList);
+        model.addAttribute("hotelek",hotelList);
         return "admin";
     }
 
@@ -155,7 +153,7 @@ public class AdminController {
        // updateVaros(12,"New York");
        // deleteVaros(12);
 
-        listHotel();
+       // listHotel();
 
 
         return "admin";

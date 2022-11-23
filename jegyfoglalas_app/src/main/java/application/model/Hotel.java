@@ -2,11 +2,10 @@ package application.model;
 
 public class Hotel {
     private int szallas_id;
+    private String szallas_nev;
     private int csillagok_szama;
     private int van_e_medence;
     private String van_e_medence_szoveg;
-
-    private String szallas_nev;
 
     public Hotel() {
     }
@@ -79,10 +78,9 @@ public class Hotel {
     public String toString() {
         return "Hotel{" +
                 "szallas_id=" + szallas_id +
-                ", csillagok_szama=" + csillagok_szama +
-                ", van_e_medence=" + van_e_medence +
-                ", van_e_medence_szoveg='" + van_e_medence_szoveg + '\'' +
                 ", szallas_nev='" + szallas_nev + '\'' +
+                ", csillagok_szama=" + csillagok_szama +
+                ", van_e_medence_szoveg='" + van_e_medence_szoveg + '\'' +
                 '}';
     }
 }

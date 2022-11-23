@@ -1,6 +1,7 @@
 package application.dao;
 
 import application.model.Szallas;
+import application.model.Ugyfel;
 import application.model.Varos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
@@ -71,6 +72,18 @@ public class SzallasDAO extends JdbcDaoSupport {
         }
 
         return result.get(0);
+    }
+
+    public void insertSzallas(Szallas szallas) {
+        String sql = "INSERT INTO szallas(varos_kod,nev,ar_per_ej) VALUES (?,?,?)";
+        getJdbcTemplate().update(sql, new Object[] {
+               szallas.getVaros_kod(), szallas.getNev(), szallas.getAr_per_ej()
+        });
+    }
+
+    public void updateSzallas(int szallas_id, String nev, int ar_per_ej) {
+        String sql = "UPDATE szallas SET nev='" + nev + "', szallas.ar_per_ej=" + ar_per_ej + " WHERE szallas.szallas_id=" + szallas_id;
+        getJdbcTemplate().update(sql);
     }
 
 

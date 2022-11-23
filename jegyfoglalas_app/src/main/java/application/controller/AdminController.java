@@ -1,10 +1,8 @@
 package application.controller;
 
-import application.dao.FoglalasokDAO;
-import application.dao.JaratDAO;
-import application.dao.UgyfelDAO;
-import application.dao.VarosDAO;
+import application.dao.*;
 import application.model.Jarat;
+import application.model.Szallas;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -28,6 +26,9 @@ public class AdminController {
 
     @Autowired
     private JaratController jaratController;
+
+    @Autowired
+    private SzallasDAO szallasDAO;
 
 
     public String deleteJarat(int jarat_szam) {
@@ -57,6 +58,24 @@ public class AdminController {
     }
 
 
+    public String insertSzallas(int varos_kod, String nev, int ar_per_ej){
+        Szallas uj_szallas = new Szallas(varos_kod,nev, ar_per_ej);
+        szallasDAO.insertSzallas(uj_szallas);
+
+        return "admin";
+    }
+
+    public String deleteSzallas(int szallas_id){
+        szallasDAO.deleteSzallas(szallas_id);
+        return "admin";
+    }
+
+    public String updateSzallas(int szallas_id, String nev, int ar_per_ej){
+       szallasDAO.updateSzallas(szallas_id, nev, ar_per_ej);
+        return "admin";
+
+    }
+
 
 
 
@@ -68,9 +87,11 @@ public class AdminController {
        //deleteJarat(1001);
        // updateJarat(1001,"jarat","alma",100,100,"01:01:01","09:09:09",5,6);
 
-        updateFoglalas(13,"2022-11-23 19:11:25",60,1);
+        //updateFoglalas(13,"2022-11-23 19:11:25",60,1);
 
+       // insertSzallas(1,"Szeged Motel", 10000);
 
+        updateSzallas(12, "Szegedi Motel",11000 );
 
         return "admin";
     }

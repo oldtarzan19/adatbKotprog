@@ -4,9 +4,13 @@ import application.dao.*;
 import application.model.Hotel;
 import application.model.Jarat;
 import application.model.Szallas;
+import application.model.Varos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+
+import java.util.List;
 
 @Controller
 public class AdminController {
@@ -78,6 +82,21 @@ public class AdminController {
 
     }
 
+    public String listHotel(){
+
+        List<Hotel> hotelList = hotelDAO.listHotel();
+
+        for (int i = 0; i < hotelList.size(); i++) {
+            hotelList.get(i).setSzallas_nev(varosDAO.getVarosByVarosKod(hotelList.get(i).getSzallas_id()).getNev());
+            System.out.println(hotelList.get(i).toString());
+        }
+
+
+
+       // model.addAttribute("hotelek",hotelList);
+        return "admin";
+    }
+
     public String insertHotel(int szallas_id, int van_e_medence, int csillagok_szama){
         Hotel newHotel = new Hotel(szallas_id,csillagok_szama, van_e_medence);
         hotelDAO.insertHotel(newHotel);
@@ -91,6 +110,22 @@ public class AdminController {
 
     public String updateHotel(int szallas_id, int csillagok_szama_uj, int van_e_medence_uj){
         hotelDAO.updateHotel(szallas_id, csillagok_szama_uj, van_e_medence_uj);
+        return "admin";
+    }
+
+    public String insertVaros(String nev){
+        Varos newVaros = new Varos(nev);
+        varosDAO.insertVaros(newVaros);
+        return "admin";
+    }
+
+    public String updateVaros(int varos_kod,String nev){
+        varosDAO.updateVaros(varos_kod,nev);
+        return "admin";
+    }
+
+    public String deleteVaros(int varos_kod){
+        varosDAO.deleteVaros(varos_kod);
         return "admin";
     }
 
@@ -116,6 +151,11 @@ public class AdminController {
        // updateHotel(12,1,0);
        // deleteHotel(12);
 
+        // insertVaros("Texas");
+       // updateVaros(12,"New York");
+       // deleteVaros(12);
+
+        listHotel();
 
 
         return "admin";

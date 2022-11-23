@@ -50,13 +50,11 @@ public class AdminController {
         return "admin";
     }
 
-
     public String updateFoglalas(int ugyfel_azonosito, String foglalas_idopontja, int helyszam_regi, int helyszam_uj ){
         foglalasokDAO.updateFoglalas(ugyfel_azonosito, foglalas_idopontja, helyszam_regi, helyszam_uj);
 
         return "admin";
     }
-
 
     public String insertSzallas(int varos_kod, String nev, int ar_per_ej){
         Szallas uj_szallas = new Szallas(varos_kod,nev, ar_per_ej);
@@ -91,7 +89,9 @@ public class AdminController {
 
        // insertSzallas(1,"Szeged Motel", 10000);
 
-        updateSzallas(12, "Szegedi Motel",11000 );
+        //updateSzallas(12, "Szegedi Motel",11000 );
+
+
 
         return "admin";
     }

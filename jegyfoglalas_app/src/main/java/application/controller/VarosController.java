@@ -17,7 +17,6 @@ public class VarosController {
     @Autowired
     private VarosDAO varosDAO;
 
-    // @GetMapping(value="mukodj")
     public String listVaros() {
         List<Varos> varosok_listaja = varosDAO.listVarosok();
         for (int i = 0; i < varosok_listaja.size(); i++) {

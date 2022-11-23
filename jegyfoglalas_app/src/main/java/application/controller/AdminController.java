@@ -43,7 +43,12 @@ public class AdminController {
         return "admin";
     }
 
-    // TODO jarat UPDATE method
+    public String updateJarat(int jarat_szam, String jarat_tipus, String sofor_nev, int ferohelyek_szama, int max_sebesseg, String indulas_ideje, String erkezes_ideje, int indulovaros_kod, int vegallomasvaros_kod){
+
+        jaratDAO.updateJarat( jarat_szam,  jarat_tipus, sofor_nev, ferohelyek_szama, max_sebesseg, indulas_ideje, erkezes_ideje, indulovaros_kod, vegallomasvaros_kod);
+        return "admin";
+    }
+
 
 
 
@@ -53,7 +58,10 @@ public class AdminController {
     @GetMapping(value = "admin_site")
     public String getAdmin(){
        // insertJarat(1001,"Vonat","Jóska",30,100,"01:01:01","09:09:09",1,2);
-       // deleteJarat(1001);
+       //deleteJarat(1001);
+        //updateJarat(1001,"jarat","alma",100,100,"01:01:01","09:09:09",5,6);
+
+
 
 
 

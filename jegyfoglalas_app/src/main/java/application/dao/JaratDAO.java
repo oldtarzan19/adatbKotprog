@@ -18,7 +18,9 @@ public class JaratDAO extends JdbcDaoSupport {
     DataSource dataSource;
 
     @PostConstruct
-    private void initialize() {setDataSource(dataSource);}
+    private void initialize() {
+        setDataSource(dataSource);
+    }
 
     public List<Jarat> listJarat() {
         String sql = "SELECT * FROM jarat";
@@ -30,9 +32,9 @@ public class JaratDAO extends JdbcDaoSupport {
         for (Map<String, Object> row : rows) {
             Jarat jarat = new Jarat();
 
-            String jaratszam =  row.get("jarat_szam").toString();
-            String jarat_tipus =  row.get("jarat_tipus").toString();
-            String sofor_nev =  row.get("sofor_nev").toString();
+            String jaratszam = row.get("jarat_szam").toString();
+            String jarat_tipus = row.get("jarat_tipus").toString();
+            String sofor_nev = row.get("sofor_nev").toString();
             String ferohelyek_szama = row.get("ferohelyek_szama").toString();
             String max_sebesseg = row.get("max_sebesseg").toString();
             String indulas_ideje = row.get("indulas_ideje").toString();
@@ -62,15 +64,15 @@ public class JaratDAO extends JdbcDaoSupport {
 
     public Jarat getJaratByJaratSzam(int jarat_szam) {
         String sql = "SELECT * FROM jarat WHERE jarat_szam=" + jarat_szam;
-        List < Map < String, Object >> rows = getJdbcTemplate().queryForList(sql);
+        List<Map<String, Object>> rows = getJdbcTemplate().queryForList(sql);
 
-        List < Jarat > result = new ArrayList < Jarat > ();
+        List<Jarat> result = new ArrayList<Jarat>();
         for (Map<String, Object> row : rows) {
             Jarat jarat = new Jarat();
 
-            String jaratszam =  row.get("jarat_szam").toString();
-            String jarat_tipus =  row.get("jarat_tipus").toString();
-            String sofor_nev =  row.get("sofor_nev").toString();
+            String jaratszam = row.get("jarat_szam").toString();
+            String jarat_tipus = row.get("jarat_tipus").toString();
+            String sofor_nev = row.get("sofor_nev").toString();
             String ferohelyek_szama = row.get("ferohelyek_szama").toString();
             String max_sebesseg = row.get("max_sebesseg").toString();
             String indulas_ideje = row.get("indulas_ideje").toString();
@@ -95,10 +97,19 @@ public class JaratDAO extends JdbcDaoSupport {
 
     public void insertJarat(Jarat jarat) {
         String sql = "INSERT INTO jarat(jarat_szam,jarat_tipus,sofor_nev,ferohelyek_szama,max_sebesseg,indulas_ideje, erkezes_ideje, indulovaros_kod,vegallomasvaros_kod) VALUES (?,?,?,?,?,?,?,?,?)";
-        getJdbcTemplate().update(sql, new Object[] {
-                jarat.getJarat_szam(), jarat.getJarat_tipus(), jarat.getSofor_nev(), jarat.getFerohelyek_szama(),jarat.getMax_sebesseg(),jarat.getIndulas_ideje(),jarat.getErkezes_ideje(),jarat.getIndulovaros_kod(), jarat.getVegallomasvaros_kod()
+        getJdbcTemplate().update(sql, new Object[]{
+                jarat.getJarat_szam(), jarat.getJarat_tipus(), jarat.getSofor_nev(), jarat.getFerohelyek_szama(), jarat.getMax_sebesseg(), jarat.getIndulas_ideje(), jarat.getErkezes_ideje(), jarat.getIndulovaros_kod(), jarat.getVegallomasvaros_kod()
         });
     }
 
-    // TODO SET fg
+    public void updateJarat(int jarat_szam, String jarat_tipus, String sofor_nev, int ferohelyek_szama, int max_sebesseg, String indulas_ideje, String erkezes_ideje, int indulovaros_kod, int vegallomasvaros_kod) {
+        indulas_ideje = "'" + indulas_ideje + "'";
+        erkezes_ideje = "'" + erkezes_ideje+"'";
+        jarat_tipus = "'" + jarat_tipus + "'";
+        sofor_nev = "'" + sofor_nev + "'";
+
+        String sql = "UPDATE jarat SET jarat_tipus= " + jarat_tipus + ", sofor_nev= " + sofor_nev + ", ferohelyek_szama= " + ferohelyek_szama + ", max_sebesseg= " + max_sebesseg + ", indulas_ideje= " + indulas_ideje + ", erkezes_ideje= " + erkezes_ideje + ", indulovaros_kod= " + indulovaros_kod + ",vegallomasvaros_kod= " + vegallomasvaros_kod + " WHERE jarat_szam= " + jarat_szam;
+        getJdbcTemplate().update(sql);
+    }
+
 }

@@ -1,6 +1,7 @@
 package application.controller;
 
 import application.dao.*;
+import application.model.Hotel;
 import application.model.Jarat;
 import application.model.Szallas;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,9 @@ public class AdminController {
 
     @Autowired
     private SzallasDAO szallasDAO;
+
+    @Autowired
+    private HotelDAO hotelDAO;
 
 
     public String deleteJarat(int jarat_szam) {
@@ -74,6 +78,23 @@ public class AdminController {
 
     }
 
+    public String insertHotel(int szallas_id, int van_e_medence, int csillagok_szama){
+        Hotel newHotel = new Hotel(szallas_id,csillagok_szama, van_e_medence);
+        hotelDAO.insertHotel(newHotel);
+        return "admin";
+    }
+
+    public String deleteHotel(int szallas_id){
+        hotelDAO.deleteHotel(szallas_id);
+        return "admin";
+    }
+
+    public String updateHotel(int szallas_id, int csillagok_szama_uj, int van_e_medence_uj){
+        hotelDAO.updateHotel(szallas_id, csillagok_szama_uj, van_e_medence_uj);
+        return "admin";
+    }
+
+
 
 
 
@@ -90,6 +111,10 @@ public class AdminController {
        // insertSzallas(1,"Szeged Motel", 10000);
 
         //updateSzallas(12, "Szegedi Motel",11000 );
+
+       // insertHotel(12,1,5);
+       // updateHotel(12,1,0);
+       // deleteHotel(12);
 
 
 

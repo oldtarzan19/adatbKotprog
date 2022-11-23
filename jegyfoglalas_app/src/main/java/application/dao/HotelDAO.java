@@ -1,6 +1,7 @@
 package application.dao;
 
 import application.model.Hotel;
+import application.model.Ugyfel;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
@@ -39,6 +40,23 @@ public class HotelDAO extends JdbcDaoSupport {
             result.add(hotel);
         }
         return result;
+    }
+
+    public void insertHotel(Hotel hotel) {
+        String sql = "INSERT INTO hotel(szallas_id,csillagok_szama,van_e_medence) VALUES (?,?,?)";
+        getJdbcTemplate().update(sql, new Object[] {
+                hotel.getSzallas_id(), hotel.getCsillagok_szama(), hotel.getVan_e_medence()
+        });
+    }
+
+    public void deleteHotel(int szallas_id) {
+        String sql = "DELETE FROM hotel WHERE szallas_id=" + szallas_id;
+        getJdbcTemplate().update(sql);
+    }
+
+    public void updateHotel(int szallas_id, int csillagok_szama, int van_e_medence) {
+        String sql = "UPDATE hotel SET csillagok_szama=" + csillagok_szama + ", van_e_medence=" + van_e_medence + " WHERE szallas_id=" + szallas_id;
+        getJdbcTemplate().update(sql);
     }
 
 }

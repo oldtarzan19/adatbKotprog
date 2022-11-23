@@ -61,4 +61,9 @@ public class FoglalasokDAO extends JdbcDaoSupport {
         });
     }
 
+    public void updateFoglalas(int ugyfel_azonoito, String foglalas_idopontja, int helyszam_regi, int helyszam_uj) {
+        String sql = "UPDATE foglalasok SET foglalasok.helyszam=" + helyszam_uj + " WHERE foglalasok.ugyfel_azonosito=" + ugyfel_azonoito + " AND foglalasok.foglalas_idopontja='" + foglalas_idopontja + "' AND foglalasok.helyszam=" + helyszam_regi;
+        getJdbcTemplate().update(sql);
+    }
+
 }

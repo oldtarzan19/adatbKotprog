@@ -50,6 +50,13 @@ public class AdminController {
     }
 
 
+    public String updateFoglalas(int ugyfel_azonosito, String foglalas_idopontja, int helyszam_regi, int helyszam_uj ){
+        foglalasokDAO.updateFoglalas(ugyfel_azonosito, foglalas_idopontja, helyszam_regi, helyszam_uj);
+
+        return "admin";
+    }
+
+
 
 
 
@@ -57,11 +64,11 @@ public class AdminController {
 
     @GetMapping(value = "admin_site")
     public String getAdmin(){
-       // insertJarat(1001,"Vonat","Jóska",30,100,"01:01:01","09:09:09",1,2);
+        //insertJarat(1001,"Vonat","Jóska",30,100,"01:01:01","09:09:09",1,2);
        //deleteJarat(1001);
-        //updateJarat(1001,"jarat","alma",100,100,"01:01:01","09:09:09",5,6);
+       // updateJarat(1001,"jarat","alma",100,100,"01:01:01","09:09:09",5,6);
 
-
+        updateFoglalas(13,"2022-11-23 19:11:25",60,1);
 
 
 

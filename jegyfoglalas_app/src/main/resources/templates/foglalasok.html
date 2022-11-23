@@ -60,6 +60,7 @@
             <th>Indulás ideje:</th>
             <th>Érkezés ideje:</th>
             <th>Foglalás időpontja:</th>
+            <th>Helyszám:</th>
             <th>Törlés:</th>
         </tr>
         </thead>
@@ -73,6 +74,7 @@
             <td th:text="${jegyek.indulas_ideje_string}"></td>
             <td th:text="${jegyek.erkezes_ideje_string}"></td>
             <td th:text="${jegyek.foglalas_idopontja}"></td>
+            <td th:text="${jegyek.helyszam}"></td>
             <td>
                 <a th:href="@{'/foglalasok_site_delete/' + |${jegyek.jaratszam_string},${jegyek.ugyfel_azonosito},${jegyek.foglalas_idopontja},${jegyek.helyszam}|}">Törlés</a>
             </td>

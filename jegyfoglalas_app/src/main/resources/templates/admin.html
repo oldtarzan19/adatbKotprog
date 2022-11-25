@@ -25,7 +25,329 @@
 </nav>
 <body style="background:#e7dbcd">
 
-<h1> Admin site</h1>
+<div style="margin: 20px">
+<h3>Járatok törlése:</h3>
+
+<form action="#" th:action="@{/jarat_torles}" method="post">
+    <label for="jarat">Járat törlése:</label>
+    <select name="torlendo_jarat" id="jarat">
+        <option th:each="jarat: ${jaratok}" th:value="${jarat.jarat_szam}" th:name="${jarat.jarat_szam}" th:text="${jarat.jarat_szam}">
+        </option>
+    </select>
+    <br><br>
+    <input type="submit" value="Elküld">
+</form>
+</div>
+<hr>
+<div style="margin-left: 20px">
+    <h3>Járat hozzáadása:</h3>
+    <form action="#" th:action="@{/jarat_hozzaadasa}" method="post">
+        <label>Járat szám:</label><br>
+        <input type="text" name="jarat_szam" required><br>
+
+        <label>Járat típusa:</label> <br/>
+        <input type="text" name="jarat_tipus" required><br>
+
+        <label>Sofőr neve:</label> <br/>
+        <input type="text" name="sofor_nev" required> <br/>
+
+        <label>Férőhelyek száma:</label> <br/>
+        <input type="text" name="ferohelyek_szama" required> <br/>
+
+        <label>Max sebesség:</label> <br/>
+        <input type="text" name="max_sebbeseg" required> <br/>
+
+        <label>Indulás ideje:</label> <br/>
+        <input type="text" name="indulas_ideje" placeholder="Formátum: 12:00:00" required> <br/>
+
+        <label>Érkezés ideje:</label> <br/>
+        <input type="text" name="erkezes_ideje" placeholder="Formátum: 12:00:00" required> <br/>
+
+        <label for="jarat">Induló város:</label>
+        <select name="indulo_varos_kod" id="varos_indulo">
+            <option th:each="varos: ${varosok}" th:value="${varos.varos_kod}" th:name="${varos.varos_kod}" th:text="${varos.nev}">
+            </option>
+        </select>
+
+        <label for="jarat">Érkező város:</label>
+        <select name="erkezo_varos_kod" id="varos_erkezo">
+            <option th:each="varos: ${varosok}" th:value="${varos.varos_kod}" th:name="${varos.varos_kod}" th:text="${varos.nev}">
+            </option>
+        </select>
+
+        <br>
+
+
+
+        <input type="submit" value="Hozzáadás" class="btn-sm btn-dark details" style="margin-top: 15px">
+    </form>
+
+</div>
+<hr>
+<div style="margin: 20px">
+    <h3>Járat szerkesztése:</h3>
+    <form action="#" th:action="@{/jarat_szerkesztese}" method="post">
+
+        <label for="jarat">Járat:</label>
+        <select name="jarat_szam" id="updateted_jarat">
+            <option th:each="jarat: ${jaratok}" th:value="${jarat.jarat_szam}" th:name="${jarat.jarat_szam}" th:text="${jarat.jarat_szam}">
+            </option>
+        </select>
+        <br>
+        <label>Új járat típusa:</label> <br/>
+        <input type="text" name="jarat_tipus" required><br>
+
+        <label>Új sofőr neve:</label> <br/>
+        <input type="text" name="sofor_nev" required> <br/>
+
+        <label>Új frőhelyek száma:</label> <br/>
+        <input type="text" name="ferohelyek_szama" required> <br/>
+
+        <label>Új max sebesség:</label> <br/>
+        <input type="text" name="max_sebbeseg" required> <br/>
+
+        <label>Új indulás ideje:</label> <br/>
+        <input type="text" name="indulas_ideje" placeholder="Formátum: 12:00:00" required> <br/>
+
+        <label>Új érkezés ideje:</label> <br/>
+        <input type="text" name="erkezes_ideje" placeholder="Formátum: 12:00:00" required> <br/>
+
+        <label for="jarat">Új induló város:</label>
+        <select name="indulo_varos_kod">
+            <option th:each="varos: ${varosok}" th:value="${varos.varos_kod}" th:name="${varos.varos_kod}" th:text="${varos.nev}">
+            </option>
+        </select>
+
+        <label for="jarat">Új érkező város:</label>
+        <select name="erkezo_varos_kod">
+            <option th:each="varos: ${varosok}" th:value="${varos.varos_kod}" th:name="${varos.varos_kod}" th:text="${varos.nev}">
+            </option>
+        </select>
+
+        <br>
+
+
+
+        <input type="submit" value="Szerkesztés" class="btn-sm btn-dark details" style="margin-top: 15px">
+    </form>
+
+</div>
+
+<hr>
+
+</div>
+
+
+<div style="margin: 20px">
+    <h3>Foglalások szerkesztése:</h3>
+    <form action="#" th:action="@{/foglalas_update}" method="post">
+
+        <label for="jarat">Ügyfél:</label>
+        <select name="ugyfel_azonosito" id="foglalas_ugyfel">
+            <option th:each="ugyfel: ${ugyfelek}" th:value="${ugyfel.ugyfel_azonosito}" th:name="${ugyfel.ugyfel_azonosito}" th:text="${ugyfel.nev}">
+            </option>
+        </select>
+        <br>
+        <label>Foglalas időpontja:</label> <br/>
+        <input type="text" name="foglalas_idopontja" placeholder="2022-01-01 12:00:00" required><br>
+
+        <label>Régi helyszám:</label> <br/>
+        <input type="number" name="helyszam_regi" required><br>
+
+        <label>Új helyszám:</label> <br/>
+        <input type="number" name="helyszam_uj" required><br>
+
+        <br>
+
+
+
+        <input type="submit" value="Szerkesztés" class="btn-sm btn-dark details" style="margin-top: 15px">
+    </form>
+
+</div>
+<hr>
+
+<div style="margin-left: 20px">
+    <h2>Szállás hozzáadása</h2>
+    <form action="#" th:action="@{/szallas_hozzaadasa}" method="post">
+        <label >Város:</label>
+        <select name="varos_kod">
+            <option th:each="varos: ${varosok}" th:value="${varos.varos_kod}" th:name="${varos.varos_kod}" th:text="${varos.nev}">
+            </option>
+        </select>
+        <br>
+        <label>Szállás neve:</label> <br/>
+        <input type="text" name="nev" required><br>
+
+        <label>Ár/éj</label> <br/>
+        <input type="number" name="ar_per_ej" required><br>
+
+        <input type="submit" value="Hozzáadás" class="btn-sm btn-dark details" style="margin-top: 15px">
+    </form>
+
+</div>
+<hr>
+
+<div style="margin-left: 20px">
+    <h2>Szállás törlése</h2>
+    <form action="#" th:action="@{/szallas_torlese}" method="post">
+        <label >Szállás neve:</label>
+        <select name="szallas_id">
+            <option th:each="szallas: ${szallasok}" th:value="${szallas.szallas_id}" th:name="${szallas.szallas_id}" th:text="${szallas.nev}">
+            </option>
+        </select>
+
+        <input type="submit" value="Törlés" class="btn-sm btn-dark details" style="margin-top: 15px">
+    </form>
+
+</div>
+<hr>
+
+<div style="margin-left: 20px">
+    <h2>Szállás törlése</h2>
+    <form action="#" th:action="@{/szallas_update}" method="post">
+        <label >Szállás neve:</label>
+        <select name="szallas_id">
+            <option th:each="szallas: ${szallasok}" th:value="${szallas.szallas_id}" th:name="${szallas.szallas_id}" th:text="${szallas.nev}">
+            </option>
+        </select>
+        <br>
+        <label>Új szállás neve:</label> <br/>
+        <input type="text" name="nev" required><br>
+
+        <label>Új ár/éj:</label> <br/>
+        <input type="number" name="ar_per_ej" required><br>
+
+        <input type="submit" value="Szerkesztés" class="btn-sm btn-dark details" style="margin-top: 15px">
+    </form>
+
+</div>
+<hr>
+
+<div style="margin-left: 20px; margin-top: 30px">
+    <h2>Hotelek listázása:</h2>
+    <table class="table" style="border: black">
+        <thead class="thead-dark">
+        <tr>
+            <th>Hotel neve:</th>
+            <th>Van e medence?</th>
+            <th>Csillagok száma:</th>
+
+        </tr>
+        </thead>
+        <tbody style="width: 20%; margin: 50px;padding: 80px">
+        <!--span th:each="task,iter : ${foo.tasks}"-->
+        <tr th:each="hotel: ${hotelek}">
+            <td th:text="${hotel.szallas_nev}"></td>
+            <td th:text="${hotel.van_e_medence_szoveg}"></td>
+            <td th:text="${hotel.csillagok_szama}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+<hr>
+<div style="margin-left: 20px">
+    <h2>Szállás hotellé nyilvánítása (hotel insert)</h2>
+    <form action="#" th:action="@{/hotel_hozzaadasa}" method="post">
+        <label >Apartman neve:</label>
+        <select name="szallas_id">
+            <option th:each="apartman: ${apartmanok}" th:value="${apartman.szallas_id}" th:name="${apartman.szallas_id}" th:text="${apartman.nev}">
+            </option>
+        </select>
+        <br>
+
+        <label>Van e medence?:</label> <br/>
+        <input type="number" name="van_e_medence" placeholder="1: van, 0: nincs" required><br>
+        <label>Csillagok száma:</label> <br/>
+        <input type="number" name="csillagok_szama" placeholder="1-5 között" required> <br/>
+        <input type="submit" value="Hozzáadás" class="btn-sm btn-dark details" style="margin-top: 15px">
+    </form>
+
+</div>
+<hr>
+
+<div style="margin-left: 20px">
+    <h2>Szállás leminősítése a Hotelek közül (delete from hotel)</h2>
+    <form action="#" th:action="@{/hotel_torlese}" method="post">
+        <label >Szállás neve:</label>
+        <select name="szallas_id">
+            <option th:each="hotel: ${hotelek}" th:value="${hotel.szallas_id}" th:name="${hotel.szallas_id}" th:text="${hotel.szallas_nev}">
+            </option>
+        </select>
+        <br>
+        <input type="submit" value="Törlés" class="btn-sm btn-dark details" style="margin-top: 15px">
+    </form>
+</div>
+<hr>
+
+
+<div style="margin-left: 20px">
+    <h2>Hotelek szerkesztése</h2>
+    <form action="#" th:action="@{/hotel_update}" method="post">
+        <label >Szállás neve:</label>
+        <select name="szallas_id">
+            <option th:each="hotel: ${hotelek}" th:value="${hotel.szallas_id}" th:name="${hotel.szallas_id}" th:text="${hotel.szallas_nev}">
+            </option>
+        </select>
+        <br>
+
+        <label>Van e medence? (új):</label> <br/>
+        <input type="number" name="van_e_medence" placeholder="1: van, 0: nincs" required><br>
+
+        <label>Csillagok száma (új):</label> <br/>
+        <input type="number" name="csillagok_szama" placeholder="1: van, 0: nincs" required><br>
+
+        <input type="submit" value="Szerkesztés" class="btn-sm btn-dark details" style="margin-top: 15px">
+    </form>
+</div>
+<hr>
+
+<div style="margin-left: 20px">
+    <h2>Város hozzáadása:</h2>
+    <form action="#" th:action="@{/varos_insert}" method="post">
+
+        <label>Város neve:</label> <br/>
+        <input type="text" name="nev" required><br>
+
+        <input type="submit" value="Hozzáadás" class="btn-sm btn-dark details" style="margin-top: 15px">
+    </form>
+</div>
+<hr>
+
+<div style="margin-left: 20px">
+    <h2>Város törlése:</h2>
+    <form action="#" th:action="@{/varos_delete}" method="post">
+
+        <label>Város:</label> <br/>
+        <select name="varos_kod">
+            <option th:each="varos: ${varosok}" th:value="${varos.varos_kod}" th:name="${varos.varos_kod}" th:text="${varos.nev}">
+            </option>
+        </select>
+        <br>
+        <input type="submit" value="Törlés" class="btn-sm btn-dark details" style="margin-top: 15px">
+    </form>
+</div>
+<hr>
+
+<div style="margin-left: 20px">
+    <h2>Város szerkesztése:</h2>
+    <form action="#" th:action="@{/varos_update}" method="post">
+
+        <label>Város:</label> <br/>
+        <select name="varos_kod">
+            <option th:each="varos: ${varosok}" th:value="${varos.varos_kod}" th:name="${varos.varos_kod}" th:text="${varos.nev}">
+            </option>
+        </select>
+        <br>
+        <label>Város új neve:</label> <br/>
+        <input type="text" name="uj_nev" required><br>
+
+        <input type="submit" value="Hozzáadás" class="btn-sm btn-dark details" style="margin-top: 15px">
+    </form>
+</div>
+
+
 
 </body>
 </html>

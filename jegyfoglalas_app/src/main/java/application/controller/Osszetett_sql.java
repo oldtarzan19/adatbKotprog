@@ -31,7 +31,7 @@ public class Osszetett_sql extends JdbcDaoSupport {
      * A szallas oldalon listázza vagy azokat a szallasokat amik hotel minősítésűek vagy csak a szallasokat.
      * @param csillagok_szama Ha hotelt keres akkor a csillagok_szama
      * @param van_e_medence Ha hotelt keres van e medence
-     * @param varos_id Melyik varosban keres szallast v hotelt
+     * @param varos_id Melyik varosban keres szallast v hotelt, ha a varos id 999 akkor nem lesz városra szűrve.
      * @param mit_keres Ha Hotelt keres akkor egy, minden más esetben csak szallast fog keresni.
      * @return Szűrt szallasokbol allo lista.
      */
@@ -42,6 +42,16 @@ public class Osszetett_sql extends JdbcDaoSupport {
                 "FROM szallas, hotel\n" +
                 "WHERE szallas.szallas_id NOT IN (SELECT hotel.szallas_id FROM hotel) AND szallas.varos_kod = "+ varos_id +"\n" +
                 "GROUP BY szallas.szallas_id";
+
+
+        if (varos_id == 999){
+             sql = "SELECT *\n" +
+                    "FROM szallas, hotel\n" +
+                    "WHERE szallas.szallas_id NOT IN (SELECT hotel.szallas_id FROM hotel) \n" +
+                    "GROUP BY szallas.szallas_id";
+        }
+
+
         // 1 ha hotel
         if(mit_keres == 1){
              sql = "SELECT * \n" +

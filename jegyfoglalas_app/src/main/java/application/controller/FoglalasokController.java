@@ -89,33 +89,33 @@ public class FoglalasokController {
     public int helyKiosztas(List<Integer> helyek_helyek_listaja, Jarat foglalt_jarat){
         Random rand = new Random();
         if(Objects.equals(foglalt_jarat.getJarat_tipus(), "Repülő")){
-            int range = 200 - 1 + 1;
+            int range = 200 - 1 + 2;
 
-           int random = rand.nextInt(range) + 1;
+           int random = rand.nextInt(range) + 2;
             while(helyek_helyek_listaja.contains(random)) {
-                random = rand.nextInt(range) + 1;
+                random = rand.nextInt(range) + 2;
             }
 
             return random;
         }
 
         if (Objects.equals(foglalt_jarat.getJarat_tipus(),"Vonat")){
-            int range = 150 - 1 + 1;
+            int range = 150 - 1 + 2;
 
-            int random = rand.nextInt(range) + 1;
+            int random = rand.nextInt(range) + 2;
             while(helyek_helyek_listaja.contains(random)) {
-                random = rand.nextInt(range) + 1;
+                random = rand.nextInt(range) + 2;
             }
 
             return random;
         }
 
         if (Objects.equals(foglalt_jarat.getJarat_tipus(), "Busz")){
-            int range = 23 - 1 + 1;
+            int range = 23 - 1 + 2;
 
-            int random = rand.nextInt(range) + 1;
+            int random = rand.nextInt(range) + 2;
             while(helyek_helyek_listaja.contains(random)) {
-                random = rand.nextInt(range) + 1;
+                random = rand.nextInt(range) + 2;
             }
 
             return random;

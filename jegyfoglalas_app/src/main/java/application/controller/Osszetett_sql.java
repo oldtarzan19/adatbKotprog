@@ -194,5 +194,30 @@ public class Osszetett_sql extends JdbcDaoSupport {
         return result;
     }
 
+    public List<Varos> getMostUsedCity(){
+        String sql = "SELECT varos.varos_kod ,varos.nev, COUNT(*) as darab\n" +
+                "FROM varos, jarat\n" +
+                "WHERE varos.varos_kod = jarat.indulovaros_kod\n" +
+                "GROUP BY varos.varos_kod\n" +
+                "ORDER BY darab DESC\n" +
+                "LIMIT 1";
+        List <Map< String, Object >> rows = getJdbcTemplate().queryForList(sql);
+
+        List < Varos > result = new ArrayList < Varos > ();
+        for (Map<String, Object> row : rows) {
+            Varos varos = new Varos();
+            String id =  row.get("varos_kod").toString();
+            String nev =  row.get("nev").toString();
+            varos.setVaros_kod(Integer.parseInt(id));
+            varos.setNev(nev);
+
+            result.add(varos);
+        }
+
+        return result;
+    }
+
+
+
 
 }

@@ -163,6 +163,7 @@ public class FoglalasokController {
             );
         }
 
+        model.addAttribute("mostUsedJarat",osszetett_sql.getMostUsedJarat());
         model.addAttribute("foglalt_jegyek",stringFoglalasok);
         model.addAttribute("foglalas_ugyfelek",ugyfelDAO.listUgyfel());
         model.addAttribute("foglalas_jaratok",jaratList);

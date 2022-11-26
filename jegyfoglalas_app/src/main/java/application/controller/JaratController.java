@@ -54,6 +54,7 @@ public class JaratController {
             );
         }
 
+        model.addAttribute("mostVaros",osszetett_sql.getMostUsedCity());
         model.addAttribute("elerheto_jaratok",jaratList);
         model.addAttribute("varosok",varosDAO.listVarosok());
         return "jaratok";
@@ -63,6 +64,7 @@ public class JaratController {
     @GetMapping(value = "jaratok_site")
     public String elerhetoVarosokListazasa(Model model) {
         model.addAttribute("varosok",varosDAO.listVarosok());
+        model.addAttribute("mostVaros",osszetett_sql.getMostUsedCity());
         return "jaratok";
     }
 

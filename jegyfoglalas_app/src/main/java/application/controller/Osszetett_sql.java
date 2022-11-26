@@ -8,6 +8,7 @@ import application.model.Varos;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.support.JdbcDaoSupport;
 import org.springframework.stereotype.Repository;
+import org.springframework.ui.Model;
 
 import javax.annotation.PostConstruct;
 import javax.sql.DataSource;
@@ -25,6 +26,9 @@ public class Osszetett_sql extends JdbcDaoSupport {
 
     @Autowired
     SzallasDAO szallasDAO;
+
+    @Autowired
+    VarosDAO varosDAO;
 
 
     /**
@@ -141,6 +145,53 @@ public class Osszetett_sql extends JdbcDaoSupport {
             helyszamok.add(hely_szam);
         }
         return helyszamok;
+    }
+
+    /**
+     * A fügvény kiírja a leghasználtabb járatot
+     * @return
+     */
+    public List<Jarat> getMostUsedJarat(){
+        String sql = "SELECT jarat.jarat_szam,jarat.jarat_tipus,jarat.sofor_nev,jarat.ferohelyek_szama,jarat.max_sebesseg,jarat.indulas_ideje, jarat.erkezes_ideje, jarat.indulovaros_kod, jarat.vegallomasvaros_kod, COUNT(*) as darab\n" +
+                "FROM foglalasok, jarat\n" +
+                "WHERE foglalasok.jaratszam = jarat.jarat_szam\n" +
+                "GROUP BY jarat.jarat_szam\n" +
+                "ORDER BY darab DESC\n" +
+                "LIMIT 1";
+        List <Map< String, Object >> rows = getJdbcTemplate().queryForList(sql);
+
+        List<Jarat> result = new ArrayList<Jarat>();
+
+        for (Map<String, Object> row : rows) {
+            Jarat jarat = new Jarat();
+
+            String jaratszam =  row.get("jarat_szam").toString();
+            String jarat_tipus =  row.get("jarat_tipus").toString();
+            String sofor_nev =  row.get("sofor_nev").toString();
+            String ferohelyek_szama = row.get("ferohelyek_szama").toString();
+            String max_sebesseg = row.get("max_sebesseg").toString();
+            String indulas_ideje = row.get("indulas_ideje").toString();
+            String erkezes_ideje = row.get("erkezes_ideje").toString();
+            String indulovaros_kod = row.get("indulovaros_kod").toString();
+            String vegallomasvaros_kod = row.get("vegallomasvaros_kod").toString();
+
+            jarat.setJarat_szam(Integer.parseInt(jaratszam));
+            jarat.setJarat_tipus(jarat_tipus);
+            jarat.setSofor_nev(sofor_nev);
+            jarat.setFerohelyek_szama(Integer.parseInt(ferohelyek_szama));
+            jarat.setMax_sebesseg(Integer.parseInt(max_sebesseg));
+            jarat.setIndulas_ideje(indulas_ideje);
+            jarat.setErkezes_ideje(erkezes_ideje);
+            jarat.setIndulovaros_kod(Integer.parseInt(indulovaros_kod));
+            jarat.setVegallomasvaros_kod(Integer.parseInt(vegallomasvaros_kod));
+            jarat.setIndulovaros_string(varosDAO.getVarosByVarosKod(Integer.parseInt(indulovaros_kod)).getNev());
+            jarat.setVegallomasvaros_string(varosDAO.getVarosByVarosKod(Integer.parseInt(vegallomasvaros_kod)).getNev());
+
+            result.add(jarat);
+        }
+
+
+        return result;
     }
 
 

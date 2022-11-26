@@ -18,6 +18,8 @@ public class Jarat {
 
     private String indulovaros_string;
 
+    private int darab;
+
     public Jarat() {
     }
 
@@ -33,6 +35,7 @@ public class Jarat {
         this.vegallomasvaros_kod = vegallomasvaros_kod;
         this.vegallomasvaros_string ="";
         this.indulovaros_string="";
+        this.darab =0;
     }
 
     public Jarat(String jarat_tipus, String sofor_nev, int ferohelyek_szama, int max_sebesseg, String indulas_ideje, String erkezes_ideje, int indulovaros_kod, int vegallomasvaros_kod) {
@@ -46,6 +49,7 @@ public class Jarat {
         this.vegallomasvaros_kod = vegallomasvaros_kod;
         this.vegallomasvaros_string ="";
         this.indulovaros_string="";
+        this.darab =0;
     }
 
     public int getJarat_szam() {
